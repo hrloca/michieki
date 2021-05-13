@@ -1,5 +1,6 @@
 import { injectable, inject } from 'tsyringe'
-import { MichinoekiRepository } from '@api/domain/repositories/MichinoekiRepository'
+import { Logger } from 'winston'
+import { MichinoekiRepository } from '@app/domain'
 import { createMichinoekiFromFeature } from './createMichinoekiFromFeature'
 import { MichinoekiJson } from '../resources'
 
@@ -8,24 +9,35 @@ import {
   MichinoekiCoordinates,
   MichinoekiName,
   MichinoekiPrefecture,
-} from '@api/domain/entities/Michinoeki'
+} from '@app/domain/entities/Michinoeki'
 
 @injectable()
 export class MichinoekiInMemoryRepository implements MichinoekiRepository {
-  constructor(@inject('MichinoekiJson') private json: MichinoekiJson) {}
+  log: Logger
+  constructor(
+    @inject('MichinoekiJson') private json: MichinoekiJson,
+    @inject('logger') private logger: Logger
+  ) {
+    this.log = this.logger.child({ className: this.constructor.name })
+  }
 
   /**
    */
   async findAll() {
-    return this.json.features.map(createMichinoekiFromFeature)
+    this.log.info('BEGIN', { methodName: this.findAll.name })
+
+    const data = this.json.features.map(createMichinoekiFromFeature)
+    return data
   }
 
   /**
    */
   async findByPrefecture(prefecture: MichinoekiPrefecture) {
-    return this.json.features
+    const result = this.json.features
       .filter((feature) => feature.properties.P35_003 === prefecture.toString())
       .map(createMichinoekiFromFeature)
+
+    return result
   }
 
   /**

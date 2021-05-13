@@ -1,0 +1,32 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run npm install.
+      run: npm install
+    - name: Run unit test.
+      run: npm run test
+
+#  build:
+#
+#    runs-on: ubuntu-latest
+#    env:
+#      DOCKER_IMAGE_TAG: ${GITHUB_SHA}
+#      DOCKER_REGISTRY: registry.heroku.com
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: Login Docker at Heroku Container Registry
+#      run: docker login --username=${{secrets.HEROKU_USERNAME}} --password=${{secrets.HEROKU_AUTH_TOKEN}} ${{env.DOCKER_REGISTRY}}
+#    - name: Build the Docker image
+#      run: docker build . --file Dockerfile --tag ${{secrets.APP_NAME}}:${{env.DOCKER_IMAGE_TAG}}
+#        && docker tag ${{secrets.APP_NAME}}:${{env.DOCKER_IMAGE_TAG}} ${{env.DOCKER_REGISTRY}}/${{secrets.APP_NAME}}/web
+#        && docker push ${{env.DOCKER_REGISTRY}}/${{secrets.APP_NAME}}/web

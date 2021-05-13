@@ -1,3 +1,3 @@
-import { Coordinates } from '@api/domain/valueObject'
+import { Coordinates } from '@app/domain/valueObject'
 
 export class MichinoekiCoordinates extends Coordinates {}

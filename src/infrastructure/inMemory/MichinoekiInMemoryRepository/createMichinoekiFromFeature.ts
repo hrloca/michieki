@@ -7,7 +7,7 @@ import {
   MichinoekiHomePage,
   MichinoekiCoordinates,
   MichinoekiFacility,
-} from '@api/domain/entities/Michinoeki'
+} from '@app/domain/entities/Michinoeki'
 
 import { michinoekiJson } from '../resources'
 

@@ -6,5 +6,6 @@ module.exports = {
   },
   moduleNameMapper: {
     '^@api/(.*)$': '<rootDir>/src/$1',
+    '^@app/(.*)$': '<rootDir>/src/$1',
   },
 }

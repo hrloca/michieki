@@ -1,9 +1,5 @@
-import { Query, Resolver, ObjectType, Field, ID } from 'type-graphql'
-import { inject, injectable } from 'tsyringe'
-import {
-  MichinoekiRepository,
-  Michinoeki as MichinoekiEntity,
-} from '@api/domain'
+import { ObjectType, Field, ID } from 'type-graphql'
+import { Michinoeki as MichinoekiEntity } from '@app/domain'
 
 @ObjectType()
 export class MichinoekiFacility {
@@ -82,20 +78,5 @@ export class Michinoeki {
       lng: eki.coordinates.lng,
       facility: eki.facility,
     }
-  }
-}
-
-@Resolver(Michinoeki)
-@injectable()
-export class MichinoekiResolver {
-  constructor(
-    @inject('MichinoekiRepository')
-    readonly michinoekiRepos: MichinoekiRepository
-  ) {}
-
-  @Query((returns) => [Michinoeki])
-  async michinoekis() {
-    const results = await this.michinoekiRepos.findAll()
-    return results.map(Michinoeki.fromEntitiy)
   }
 }

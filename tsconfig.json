@@ -1,8 +1,5 @@
 {
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.json"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.json"],
   "compilerOptions": {
     "target": "ES2019",
     "lib": ["esnext", "esnext.asynciterable"],
@@ -15,14 +12,15 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["jest"],
+    "types": ["jest", "node"],
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
     "resolveJsonModule": true,
     "paths": {
-      "@api/*": ["./*"]
+      "@api/*": ["./*"],
+      "@app/*": ["./*"]
     }
   }
 }

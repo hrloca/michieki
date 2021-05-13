@@ -1,36 +1,32 @@
-# --------------------------------------------------
-FROM node:16.0.0-alpine as module
-
-WORKDIR /opt/app
-
-COPY package.json package-lock.json .
-
-RUN npm install --prod
+ARG BUILDER_BASE_PATH=/tmp/app
 
 # --------------------------------------------------
 FROM node:16.0.0-alpine as builder
+ARG BUILDER_BASE_PATH
 
-WORKDIR /opt/app
+WORKDIR $BUILDER_BASE_PATH
 
-COPY package.json package-lock.json .
-COPY --from=module /opt/app/node_modules ./node_modules
+COPY package.json package-lock.json ./
+COPY ./bin ./bin
 
 RUN npm install
 
-COPY bin ./bin
-COPY src ./src
-COPY .apirc .eslintignore .eslintrc.js .prettierrc.js jest.config.js package.json tsconfig.json .
+COPY ./src ./src
+COPY tsconfig.json ./
 
 RUN npm run build
 
+RUN npm install --only=prod
+
 # --------------------------------------------------
-FROM node:16.0.0-alpine
+FROM node:16.0.0-alpine as base
+ARG BUILDER_BASE_PATH
 
 WORKDIR /opt/app
 
-COPY package.json package-lock.json .
-COPY --from=module /opt/app/node_modules ./node_modules
-COPY bin ./bin
-COPY dist ./dist
+COPY package.json package-lock.json ./
+COPY ./bin ./bin
+COPY --from=builder $BUILDER_BASE_PATH/node_modules ./node_modules
+COPY --from=builder $BUILDER_BASE_PATH/dist ./dist
 
 CMD ["npm", "run", "start"]

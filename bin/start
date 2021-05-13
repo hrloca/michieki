@@ -1,7 +1,10 @@
 #! /usr/bin/env node
+process.env.NODE_ENV = process.env.NODE_ENV || 'production'
+
 const path = require('path')
 const alias = require('module-alias')
 
 alias.addAlias('@api', path.join(__dirname, '../dist'))
+alias.addAlias('@app', path.join(__dirname, '../dist'))
 
 require('../dist')
