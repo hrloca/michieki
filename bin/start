@@ -1,0 +1,7 @@
+#! /usr/bin/env node
+const path = require('path')
+const alias = require('module-alias')
+
+alias.addAlias('@api', path.join(__dirname, '../dist'))
+
+require('../dist')
