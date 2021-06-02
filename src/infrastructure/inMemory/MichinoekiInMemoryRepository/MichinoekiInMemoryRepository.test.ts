@@ -7,7 +7,7 @@ import {
   MichinoekiPrefecture,
 } from '@app/domain/entities/Michinoeki'
 import { michinoekiJson } from '../resources'
-import { createLogger } from '@app/libs'
+import { createLogger } from '@app/core'
 
 describe('MichinoekiStaticRepository', () => {
   const repos = new MichinoekiInMemoryRepository(michinoekiJson, createLogger())
