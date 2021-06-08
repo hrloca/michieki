@@ -1,9 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 import { MichinoekiRepository } from '@app/domain'
-import {
-  FindAllMichinoekiUseCase,
-  FindAllMichinoekiInputData,
-} from './FindAllMichinoekiUseCase'
+import { FindAllMichinoekiUseCase } from './FindAllMichinoekiUseCase'
 
 @injectable()
 export class FindAllMichinoekiInteractor implements FindAllMichinoekiUseCase {
@@ -12,7 +9,7 @@ export class FindAllMichinoekiInteractor implements FindAllMichinoekiUseCase {
     readonly michinoekiRepos: MichinoekiRepository
   ) {}
 
-  async execute(input: FindAllMichinoekiInputData) {
+  async execute() {
     return (await this.michinoekiRepos.findAll()) as any
   }
 }

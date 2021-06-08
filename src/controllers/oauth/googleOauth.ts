@@ -26,19 +26,19 @@ googleOauthRouter.get('/', async (ctx) => {
 
 googleOauthRouter.get('/redirect', async (ctx) => {
   const { code } = ctx.query
-  if (typeof code !== 'string') throw new Error()
+  if (typeof code !== 'string')
+    throw new Error('クエリパラメータのcodeが無いか文字列ではないようです。')
+
   const { tokens } = await oauth2Client.getToken(code)
 
-  console.log('code', code)
-  console.log('tokens', tokens)
   oauth2Client.setCredentials(tokens)
   oauth2Client.on('tokens', (tokens) => {
+    console.log('ontokens', tokens)
     if (tokens.refresh_token) {
-      // store the refresh_token in my database!
       console.log('tokens.refresh_token', tokens.refresh_token)
     }
     console.log('tokens.access_token', tokens.access_token)
   })
 
-  ctx.body = tokens
+  ctx.body = 'sucsses'
 })

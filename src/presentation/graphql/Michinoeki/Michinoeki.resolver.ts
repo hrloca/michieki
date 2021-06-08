@@ -1,19 +1,16 @@
 import { Query, Resolver } from 'type-graphql'
-import { inject, injectable } from 'tsyringe'
-import { MichinoekiRepository } from '@app/domain'
+import { injectable } from 'tsyringe'
+import { FindAllMichinoekiInteractor } from '@app/usecase'
 import { Michinoeki } from './Michinoeki'
 
 @Resolver(Michinoeki)
 @injectable()
 export class MichinoekiResolver {
-  constructor(
-    @inject('MichinoekiRepository')
-    readonly michinoekiRepos: MichinoekiRepository
-  ) {}
+  constructor(readonly findAllMichinoeki: FindAllMichinoekiInteractor) {}
 
   @Query((returns) => [Michinoeki])
   async michinoekis() {
-    const results = await this.michinoekiRepos.findAll()
+    const results = await this.findAllMichinoeki.execute()
     return results.map(Michinoeki.fromEntitiy)
   }
 }

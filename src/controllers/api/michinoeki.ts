@@ -13,5 +13,5 @@ const resolveModules = (ctx: AppContext) => {
 
 michinoekiRouter.get('/michinoekis', async (ctx) => {
   const { findAllMichinoeki } = resolveModules(ctx)
-  ctx.body = await findAllMichinoeki.execute({})
+  ctx.body = await findAllMichinoeki.execute()
 })

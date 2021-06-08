@@ -1,4 +1,3 @@
-export interface FindAllMichinoekiInputData {}
 export interface FindAllMichinoekiOutputData {}
 
 export interface FindAllMichinoekiPresenter {
@@ -6,7 +5,5 @@ export interface FindAllMichinoekiPresenter {
 }
 
 export interface FindAllMichinoekiUseCase {
-  execute(
-    input: FindAllMichinoekiInputData
-  ): Promise<FindAllMichinoekiOutputData>
+  execute(): Promise<FindAllMichinoekiOutputData>
 }
