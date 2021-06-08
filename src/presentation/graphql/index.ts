@@ -1,13 +1,8 @@
 import path from 'path'
-import { Context } from 'koa'
 import { ApolloServer } from 'apollo-server-koa'
-import { DependencyContainer } from 'tsyringe'
 import { buildSchema, ContainerGetter } from 'type-graphql'
 import { gatherModules } from '@app/core'
-
-interface AppContext extends Context {
-  container: DependencyContainer
-}
+import { AppContext } from '@app/types'
 
 const containerGetterByTsyringe: ContainerGetter<AppContext> = ({
   context,
@@ -26,7 +21,7 @@ export const createApolloServer = async () => {
       container: containerGetterByTsyringe,
       resolvers,
       emitSchemaFile: {
-        path: path.join('dist', 'schema.graphql'),
+        path: path.join(process.cwd(), 'dist', 'schema.graphql'),
         commentDescriptions: true,
       },
     }),

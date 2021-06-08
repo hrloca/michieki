@@ -3,8 +3,12 @@ import { Logger } from 'winston'
 import { michinoekiJson, MichinoekiJson } from '@app/infrastructure'
 import { gatherModules } from '@app/core'
 
-export const createContainer = async () => {
-  await gatherModules('**/*.registry.ts', __dirname)
+const resolveContainersDependency = async (cwd: string) => {
+  await gatherModules('**/*.registry.ts', cwd)
+}
+
+export const createContainer = async (cwd: string) => {
+  await resolveContainersDependency(cwd)
 
   container.register<MichinoekiJson>('MichinoekiJson', {
     useValue: michinoekiJson,

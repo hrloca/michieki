@@ -1,3 +1,2 @@
-export * from './graphql'
-export * from './rest'
 export * from './html'
+export * from './graphql'
