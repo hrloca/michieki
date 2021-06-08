@@ -13,8 +13,6 @@ export class FindAllMichinoekiInteractor implements FindAllMichinoekiUseCase {
   ) {}
 
   async execute(input: FindAllMichinoekiInputData) {
-    const result = await this.michinoekiRepos.findAll()
-    console.log(input, result)
-    return {}
+    return (await this.michinoekiRepos.findAll()) as any
   }
 }

@@ -17,6 +17,7 @@ const createApp = async () => {
   app.use(morgan('combined', { stream: process.stdout }))
   app.use(registerScopedContexts({ container, logger }))
   app.use(apolloServer.getMiddleware())
+
   await createRestApiServer(app)
 
   return { app, logger }
