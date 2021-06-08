@@ -11,6 +11,6 @@ export class MichinoekiResolver {
   @Query((returns) => [Michinoeki])
   async michinoekis() {
     const results = await this.findAllMichinoeki.execute()
-    return results.map(Michinoeki.fromEntitiy)
+    return results.map(Michinoeki.present)
   }
 }

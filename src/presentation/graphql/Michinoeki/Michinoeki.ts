@@ -67,7 +67,7 @@ export class Michinoeki {
   @Field((type) => MichinoekiFacility)
   facility: MichinoekiFacility
 
-  static fromEntitiy(eki: MichinoekiEntity): Michinoeki {
+  static present(eki: MichinoekiEntity): Michinoeki {
     return {
       id: eki.id.toString(),
       name: eki.name.toString(),
