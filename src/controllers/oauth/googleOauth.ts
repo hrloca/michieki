@@ -1,7 +1,13 @@
 import { google } from 'googleapis'
 import { createAppRouter } from '@app/core'
+import { config } from '@app/config'
 
-const oauth2Client = new google.auth.OAuth2('xxxx', 'xxxx', 'xxxx')
+const oauth2Client = new google.auth.OAuth2(
+  config.googleOauthClientId,
+  config.googleOauthClientSecret,
+  config.googleOauthRedirectUrl
+)
+
 const scopes = [
   'https://www.googleapis.com/auth/userinfo.profile',
   'https://www.googleapis.com/auth/userinfo.email',

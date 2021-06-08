@@ -6,6 +6,9 @@ const defaultConfig = {
   logForOnlyOneline: true,
   redisURL: 'redis://localhost:6379',
   elasticsearchURL: 'http://localhost:9200',
+  googleOauthClientId: '',
+  googleOauthClientSecret: '',
+  googleOauthRedirectUrl: '',
 }
 
 export const config = rc('api', defaultConfig) as typeof defaultConfig
