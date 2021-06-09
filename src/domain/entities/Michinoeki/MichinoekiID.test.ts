@@ -6,11 +6,11 @@ describe('MichinoekiStaticRepository', () => {
 
   it('Souerceが同じであればIDが同じであること', async () => {
     const otherId = new MichinoekiID('hoge')
-    expect(id.isEqualTo(otherId)).toBe(true)
+    expect(id.equals(otherId)).toBe(true)
   })
 
   it('文字列化して復元できること', async () => {
     const parsed = MichinoekiID.parse(MichinoekiID.stringify(id))
-    expect(parsed.isEqualTo(id)).toBe(true)
+    expect(parsed.equals(id)).toBe(true)
   })
 })

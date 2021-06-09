@@ -1,26 +1,23 @@
-import { google } from 'googleapis'
 import { createAppRouter } from '@app/core'
 import { config } from '@app/config'
-
-const oauth2Client = new google.auth.OAuth2(
-  config.googleOauthClientId,
-  config.googleOauthClientSecret,
-  config.googleOauthRedirectUrl
-)
-
-const scopes = [
-  'https://www.googleapis.com/auth/userinfo.profile',
-  'https://www.googleapis.com/auth/userinfo.email',
-]
-
-const url = oauth2Client.generateAuthUrl({
-  scope: scopes,
-})
+import { URL } from 'url'
+import fetch from 'node-fetch'
 
 export const googleOauthRouter = createAppRouter()
 
 // authenticate
 googleOauthRouter.get('/', async (ctx) => {
+  const authURL = new URL('https://accounts.google.com/o/oauth2/auth')
+  authURL.searchParams.set('client_id', config.googleOauthClientId)
+  authURL.searchParams.set('redirect_uri', config.googleOauthRedirectUrl)
+  authURL.searchParams.set('response_type', 'code')
+  const scopes = [
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'https://www.googleapis.com/auth/userinfo.email',
+  ]
+  authURL.searchParams.set('scope', scopes.join(' '))
+
+  const url = authURL.toString()
   ctx.redirect(url)
 })
 
@@ -29,16 +26,23 @@ googleOauthRouter.get('/redirect', async (ctx) => {
   if (typeof code !== 'string')
     throw new Error('クエリパラメータのcodeが無いか文字列ではないようです。')
 
-  const { tokens } = await oauth2Client.getToken(code)
+  const tokenURL = new URL('https://accounts.google.com/o/oauth2/token')
+  tokenURL.searchParams.set('client_secret', config.googleOauthClientSecret)
+  tokenURL.searchParams.set('client_id', config.googleOauthClientId)
+  tokenURL.searchParams.set('redirect_uri', config.googleOauthRedirectUrl)
+  tokenURL.searchParams.set('grant_type', 'authorization_code')
+  tokenURL.searchParams.set('code', code)
 
-  oauth2Client.setCredentials(tokens)
-  oauth2Client.on('tokens', (tokens) => {
-    console.log('ontokens', tokens)
-    if (tokens.refresh_token) {
-      console.log('tokens.refresh_token', tokens.refresh_token)
-    }
-    console.log('tokens.access_token', tokens.access_token)
+  const res = await fetch(tokenURL.toString(), { method: 'post' })
+  const tokens = await res.json()
+
+  const userinfoURL = new URL('https://www.googleapis.com/oauth2/v1/userinfo')
+
+  const resProfile = await fetch(userinfoURL.toString(), {
+    headers: {
+      Authorization: `Bearer ${tokens.access_token}`,
+    },
   })
 
-  ctx.body = 'sucsses'
+  ctx.body = await resProfile.json()
 })

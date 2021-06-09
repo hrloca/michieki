@@ -61,7 +61,7 @@ export class MichinoekiInMemoryRepository implements MichinoekiRepository {
           )
         )
 
-        return ids.some((id) => id.isEqualTo(targetId))
+        return ids.some((id) => id.equals(targetId))
       })
       .map(createMichinoekiFromFeature)
   }
