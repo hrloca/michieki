@@ -1,3 +1,5 @@
 export * from './ID'
 export * from './Equatable'
 export * from './Entity'
+export * from './StringConvertible'
+export * from './Identifiable'

@@ -1,16 +1,14 @@
 import { MichinoekiCoordinates } from './MichinoekiCoordinates'
 import { ID } from '../../core'
 
-export class MichinoekiID implements ID {
-  constructor(readonly source: string) {}
+export class MichinoekiID extends ID {
+  constructor(readonly source: string) {
+    super()
+  }
 
   toString() {
     const buffer = Buffer.from(this.source)
     return buffer.toString('base64')
-  }
-
-  equals(comparisonTaret: MichinoekiID) {
-    return comparisonTaret.source === this.source
   }
 
   static stringify(id: MichinoekiID) {
