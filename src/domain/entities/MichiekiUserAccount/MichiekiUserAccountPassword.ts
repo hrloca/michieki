@@ -19,9 +19,6 @@ export class PasswordHasher {
   }
 }
 
-/**
- * パスワードの同一性の検証
- */
 export class MichiekiUserAccountPassword {
   constructor(readonly hash: string, readonly salt: string) {}
 
