@@ -35,13 +35,19 @@ export class MichiekiUserAccountService {
 
   async storeUserAccount(input: CreateUserAccountInput) {
     const account = this.createUserAccount(input)
-    this.accountRepos.store(account)
+    await this.accountRepos.store(account)
+    return account
   }
 
   async isDuplicatedEmailAddress(
     emailAddress: MichiekiUserAccountEmailAddress
   ): Promise<boolean> {
     const account = await this.accountRepos.findByEmailAddress(emailAddress)
+    return !!account
+  }
+
+  async isDuplicatedAccountId(id: MichiekiUserAccountID): Promise<boolean> {
+    const account = await this.accountRepos.findById(id)
     return !!account
   }
 }
