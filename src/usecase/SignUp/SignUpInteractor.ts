@@ -16,34 +16,22 @@ export class SignUpInteractor implements SignUpUseCase {
   ) {}
 
   async verifyMailAdress(emailAdressPlaneText: string): Promise<null | Error> {
-    try {
-      const mailaddress = new MichiekiUserAccountEmailAddress(
-        emailAdressPlaneText
-      )
+    const mailaddress = new MichiekiUserAccountEmailAddress(
+      emailAdressPlaneText
+    )
+    const isDuplicated = await this.accountservice.isDuplicatedEmailAddress(
+      mailaddress
+    )
+    if (isDuplicated) throw new Error('メールアドレスが重複しています')
 
-      const IsDuplicated = await this.accountservice.isDuplicatedEmailAddress(
-        mailaddress
-      )
-
-      if (IsDuplicated) throw new Error('メールアドレスが重複しています')
-
-      return null
-    } catch (e) {
-      return e
-    }
+    return null
   }
 
   async verifyUserId(idPlaneText: string): Promise<null | Error> {
-    try {
-      const id = new MichiekiUserID(idPlaneText)
+    const id = new MichiekiUserID(idPlaneText)
+    const isDuplicated = await this.userservice.isDuplicatedUserID(id)
+    if (isDuplicated) throw new Error('idが重複しています')
 
-      const IsDuplicated = await this.userservice.isDuplicatedUserID(id)
-
-      if (IsDuplicated) throw new Error('idが重複しています')
-
-      return null
-    } catch (e) {
-      return e
-    }
+    return null
   }
 }

@@ -20,7 +20,27 @@ export class PasswordHasher {
 }
 
 export class MichiekiUserAccountPassword {
-  constructor(private readonly hash: string, private readonly salt: string) {}
+  private hash: string
+  private salt: string
+  private maxLength: number = 24
+  private minLength: number = 8
+  private properCharacter: RegExp = /^[0-9a-zA-Z]*$/
+
+  constructor(secret: string)
+  constructor(hash: string, salt: string)
+
+  constructor(hashOrSecret: string, salt?: string) {
+    if (hashOrSecret && salt) {
+      this.hash = hashOrSecret
+      this.salt = salt
+      return
+    }
+
+    if (hashOrSecret) {
+      this.createHashAndSaltFrom(hashOrSecret)
+      return
+    }
+  }
 
   matches(secret: string): boolean {
     const hasher = new PasswordHasher()
@@ -28,10 +48,29 @@ export class MichiekiUserAccountPassword {
     return hash === this.hash
   }
 
-  static from(secret: string) {
-    const salt = randomUUID()
+  private isOverMaxLength(secret: string) {
+    return secret.length < this.minLength
+  }
+
+  private isLessThanMinLength(secret: string) {
+    return secret.length > this.maxLength
+  }
+
+  private verifySecret(secret: string) {
+    if (!this.properCharacter.test(secret))
+      throw new Error('パスワードに不正な文字が含まれています。')
+
+    if (this.isLessThanMinLength(secret))
+      throw new Error('パスワード長の最小値を下回っています。')
+
+    if (this.isOverMaxLength(secret))
+      throw new Error('パスワード長の最大値を超えています。')
+  }
+
+  private createHashAndSaltFrom(secret: string) {
+    this.verifySecret(secret)
+    this.salt = randomUUID()
     const hasher = new PasswordHasher()
-    const hash = hasher.hashing(secret, salt)
-    return new MichiekiUserAccountPassword(hash, salt)
+    this.hash = hasher.hashing(secret, this.salt)
   }
 }

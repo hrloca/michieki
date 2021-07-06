@@ -24,7 +24,7 @@ export class MichiekiUserAccountService {
   ) {}
 
   private createUserAccount(input: CreateUserAccountInput) {
-    const password = MichiekiUserAccountPassword.from(input.secret)
+    const password = new MichiekiUserAccountPassword(input.secret)
     const email = new MichiekiUserAccountEmailAddress(
       input.emailadressPlaneText
     )

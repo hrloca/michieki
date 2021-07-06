@@ -8,7 +8,6 @@ import {
   MichiekiUserID,
   MichiekiUser,
   MichiekiUserDisplayName,
-  MichiekiUserAccountID,
 } from '@app/domain'
 
 describe('MichiekiUserInMemoryRepository test.', () => {
@@ -16,14 +15,12 @@ describe('MichiekiUserInMemoryRepository test.', () => {
 
   const a = new MichiekiUser(
     new MichiekiUserID('a'),
-    new MichiekiUserDisplayName('a:san'),
-    new MichiekiUserAccountID('account1')
+    new MichiekiUserDisplayName('a:san')
   )
 
   const b = new MichiekiUser(
     new MichiekiUserID('b'),
-    new MichiekiUserDisplayName('b:san'),
-    new MichiekiUserAccountID('account')
+    new MichiekiUserDisplayName('b:san')
   )
 
   ds.store.set(a.id.source, a)
@@ -43,8 +40,7 @@ describe('MichiekiUserInMemoryRepository test.', () => {
   it('MichiekiUserを登録できる', async () => {
     const c = new MichiekiUser(
       new MichiekiUserID('c'),
-      new MichiekiUserDisplayName('c:san'),
-      new MichiekiUserAccountID('account:c')
+      new MichiekiUserDisplayName('c:san')
     )
 
     const result = await repos.store(c)
@@ -57,8 +53,7 @@ describe('MichiekiUserInMemoryRepository test.', () => {
   it('MichiekiUserを更新できる', async () => {
     const d = new MichiekiUser(
       new MichiekiUserID('d'),
-      new MichiekiUserDisplayName('d:san'),
-      new MichiekiUserAccountID('account:d')
+      new MichiekiUserDisplayName('d:san')
     )
 
     const result = await repos.store(d)
@@ -66,8 +61,7 @@ describe('MichiekiUserInMemoryRepository test.', () => {
 
     const new_d = new MichiekiUser(
       new MichiekiUserID('d'),
-      new MichiekiUserDisplayName('d:sama'),
-      new MichiekiUserAccountID('account:d')
+      new MichiekiUserDisplayName('d:sama')
     )
 
     const result2 = await repos.store(new_d)

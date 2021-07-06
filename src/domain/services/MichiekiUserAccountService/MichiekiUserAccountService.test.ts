@@ -23,7 +23,7 @@ const createService = () => {
 
 const createAccounts = async (service: MichiekiUserAccountService) => {
   const account1 = await service.storeUserAccount({
-    secret: '1234',
+    secret: '12345678',
     emailadressPlaneText: 'hoge@gmail.com',
     userId: new MichiekiUserID('hoge'),
   })
