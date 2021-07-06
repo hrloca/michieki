@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto'
 import { inject, injectable } from 'tsyringe'
-import { PasswordHasher, MichiekiUserAccountPassword } from '@app/domain'
+import { MichiekiUserAccountPassword } from '@app/domain'
 
 import {
   MichiekiUserAccountRepository,
@@ -10,6 +10,12 @@ import {
   MichiekiUserID,
 } from '@app/domain'
 
+interface CreateUserAccountInput {
+  secret: string
+  emailadressPlaneText: string
+  userId: MichiekiUserID
+}
+
 @injectable()
 export class MichiekiUserAccountService {
   constructor(
@@ -17,23 +23,19 @@ export class MichiekiUserAccountService {
     readonly accountRepos: MichiekiUserAccountRepository
   ) {}
 
-  async createUserAccount(
-    secret: string,
-    emailadressPlaneText: string,
-    userId: MichiekiUserID
-  ) {
-    const password = this.passwordInitialCreate(secret)
-    const email = new MichiekiUserAccountEmailAddress(emailadressPlaneText)
+  private createUserAccount(input: CreateUserAccountInput) {
+    const password = MichiekiUserAccountPassword.from(input.secret)
+    const email = new MichiekiUserAccountEmailAddress(
+      input.emailadressPlaneText
+    )
     const id = new MichiekiUserAccountID(randomUUID())
-    return new MichiekiUserAccount(id, userId, password, email)
+
+    return new MichiekiUserAccount(id, input.userId, password, email)
   }
 
-  private passwordInitialCreate(secret: string) {
-    const salt = randomUUID()
-    const hasher = new PasswordHasher()
-    const hash = hasher.hashing(secret, salt)
-
-    return new MichiekiUserAccountPassword(hash, salt)
+  async storeUserAccount(input: CreateUserAccountInput) {
+    const account = this.createUserAccount(input)
+    this.accountRepos.store(account)
   }
 
   async isDuplicatedEmailAddress(
