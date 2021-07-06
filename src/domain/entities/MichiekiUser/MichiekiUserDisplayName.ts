@@ -3,21 +3,18 @@ class MichiekiUserNameCharacterCountRuleError extends Error {
 }
 
 export class MichiekiUserDisplayName {
-  body: string
-
   private characterCountLimit: 20
 
-  constructor(nameString: string) {
-    this.validate(nameString)
-    this.body = nameString
+  constructor(private body: string) {
+    this.validate()
   }
 
   toString() {
     return this.body
   }
 
-  private validate(nameString: string) {
-    this.validateCharacterCount(nameString)
+  private validate() {
+    this.validateCharacterCount(this.body)
   }
 
   private validateCharacterCount(nameString: string) {
