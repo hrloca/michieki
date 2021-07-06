@@ -7,24 +7,28 @@ import {
   MichiekiUserAccountEmailAddress,
 } from '@app/domain'
 
+export class MichiekiUserAccountInMemoryDS {
+  constructor(readonly store: Map<string, MichiekiUserAccount>) {}
+}
+
 @injectable()
 export class MichiekiUserAccountInMemoryRepository
   implements MichiekiUserAccountRepository
 {
   constructor(
     @inject('MichiekiUserInMemoryRepositoryDS')
-    private readonly dataSource: Map<string, MichiekiUserAccount>
+    private readonly data: MichiekiUserAccountInMemoryDS
   ) {}
   /**
    */
   async findById(id: MichiekiUserAccountID) {
-    const user = this.dataSource.get(id.source) || null
+    const user = this.data.store.get(id.source) || null
     return user
   }
 
   async findByEmailAddress(emailaddress: MichiekiUserAccountEmailAddress) {
     const emailaddressPlaneText = emailaddress.toString()
-    for (let account of this.dataSource.values()) {
+    for (let account of this.data.store.values()) {
       const accountEmailPlaneText = account.MailAddress.toString()
       if (emailaddressPlaneText === accountEmailPlaneText) return account
     }
@@ -32,7 +36,7 @@ export class MichiekiUserAccountInMemoryRepository
   }
 
   async store(user: MichiekiUserAccount) {
-    this.dataSource.set(user.id.source, user)
+    this.data.store.set(user.id.source, user)
     return user.id
   }
 }

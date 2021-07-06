@@ -20,24 +20,18 @@ export class PasswordHasher {
 }
 
 export class MichiekiUserAccountPassword {
-  constructor(readonly hash: string, readonly salt: string) {}
+  constructor(private readonly hash: string, private readonly salt: string) {}
 
-  verify(secret: string): boolean {
+  matches(secret: string): boolean {
     const hasher = new PasswordHasher()
     const hash = hasher.hashing(secret, this.salt)
     return hash === this.hash
   }
-}
 
-/**
- * パスワードの初期生成
- */
-export class MichiekiUserAccountPasswordInitialCreator {
-  from(secret: string) {
+  static from(secret: string) {
     const salt = randomUUID()
     const hasher = new PasswordHasher()
     const hash = hasher.hashing(secret, salt)
-
     return new MichiekiUserAccountPassword(hash, salt)
   }
 }

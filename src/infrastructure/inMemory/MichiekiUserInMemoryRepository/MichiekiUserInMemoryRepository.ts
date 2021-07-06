@@ -6,21 +6,25 @@ import {
   MichiekiUser,
 } from '@app/domain'
 
+export class MichiekiUserInMemoryDS {
+  constructor(readonly store: Map<string, MichiekiUser>) {}
+}
+
 @injectable()
 export class MichiekiUserInMemoryRepository implements MichiekiUserRepository {
   constructor(
     @inject('MichiekiUserInMemoryRepositoryDS')
-    private readonly dataSource: Map<string, MichiekiUser>
+    private readonly data: MichiekiUserInMemoryDS
   ) {}
   /**
    */
   async findById(id: MichiekiUserID) {
-    const user = this.dataSource.get(id.source) || null
+    const user = this.data.store.get(id.source) || null
     return user
   }
 
   async store(user: MichiekiUser) {
-    this.dataSource.set(user.id.source, user)
+    this.data.store.set(user.id.source, user)
     return user.id
   }
 }

@@ -1,6 +1,9 @@
 import 'reflect-metadata'
 
-import { MichiekiUserInMemoryRepository } from './MichiekiUserInMemoryRepository'
+import {
+  MichiekiUserInMemoryRepository,
+  MichiekiUserInMemoryDS,
+} from './MichiekiUserInMemoryRepository'
 import {
   MichiekiUserID,
   MichiekiUser,
@@ -9,7 +12,7 @@ import {
 } from '@app/domain'
 
 describe('MichiekiUserInMemoryRepository test.', () => {
-  const dataSource = new Map<string, MichiekiUser>()
+  const ds = new MichiekiUserInMemoryDS(new Map<string, MichiekiUser>())
 
   const a = new MichiekiUser(
     new MichiekiUserID('a'),
@@ -23,10 +26,10 @@ describe('MichiekiUserInMemoryRepository test.', () => {
     new MichiekiUserAccountID('account')
   )
 
-  dataSource.set(a.id.source, a)
-  dataSource.set(b.id.source, b)
+  ds.store.set(a.id.source, a)
+  ds.store.set(b.id.source, b)
 
-  const repos = new MichiekiUserInMemoryRepository(dataSource)
+  const repos = new MichiekiUserInMemoryRepository(ds)
 
   it('IDで対象のMichiekiUserが取得できる', async () => {
     const result = await repos.findById(new MichiekiUserID('a'))

@@ -1,5 +1,8 @@
 import 'reflect-metadata'
-import { MichiekiUserAccountInMemoryRepository } from './MichiekiUserAccountInMemoryRepository'
+import {
+  MichiekiUserAccountInMemoryRepository,
+  MichiekiUserAccountInMemoryDS,
+} from './MichiekiUserAccountInMemoryRepository'
 import {
   MichiekiUserAccountID,
   MichiekiUserAccountPassword,
@@ -17,16 +20,20 @@ describe('MichiekiUserAccountInMemoryRepository test.', () => {
   )
 
   it('MichiekiUserAccountを登録できる', async () => {
-    const dataSource = new Map<string, MichiekiUserAccount>()
-    const repos = new MichiekiUserAccountInMemoryRepository(dataSource)
+    const data = new MichiekiUserAccountInMemoryDS(
+      new Map<string, MichiekiUserAccount>()
+    )
+    const repos = new MichiekiUserAccountInMemoryRepository(data)
     await repos.store(account)
 
-    expect(dataSource.get('account')).toBe(account)
+    expect(data.store.get('account')).toBe(account)
   })
 
   it('IDで対象のMichiekiUserAccountが取得できる', async () => {
-    const dataSource = new Map<string, MichiekiUserAccount>()
-    const repos = new MichiekiUserAccountInMemoryRepository(dataSource)
+    const data = new MichiekiUserAccountInMemoryDS(
+      new Map<string, MichiekiUserAccount>()
+    )
+    const repos = new MichiekiUserAccountInMemoryRepository(data)
     await repos.store(account)
 
     const acc = await repos.findById(new MichiekiUserAccountID('account'))
@@ -34,8 +41,10 @@ describe('MichiekiUserAccountInMemoryRepository test.', () => {
   })
 
   it('MichiekiUserAccountを更新できる', async () => {
-    const dataSource = new Map<string, MichiekiUserAccount>()
-    const repos = new MichiekiUserAccountInMemoryRepository(dataSource)
+    const data = new MichiekiUserAccountInMemoryDS(
+      new Map<string, MichiekiUserAccount>()
+    )
+    const repos = new MichiekiUserAccountInMemoryRepository(data)
     await repos.store(account)
 
     const acc = await repos.findById(new MichiekiUserAccountID('account'))

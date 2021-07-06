@@ -15,6 +15,6 @@ export class MichiekiUserAccount extends Entity<MichiekiUserAccountID> {
   }
 
   authentication(secret: string): boolean {
-    return this.password.verify(secret)
+    return this.password.matches(secret)
   }
 }

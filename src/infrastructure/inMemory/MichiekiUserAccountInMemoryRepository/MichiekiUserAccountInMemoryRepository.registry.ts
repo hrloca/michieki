@@ -1,5 +1,8 @@
 import { container } from 'tsyringe'
-import { MichiekiUserAccountInMemoryRepository } from './MichiekiUserAccountInMemoryRepository'
+import {
+  MichiekiUserAccountInMemoryRepository,
+  MichiekiUserAccountInMemoryDS,
+} from './MichiekiUserAccountInMemoryRepository'
 import { MichiekiUserAccount } from '@app/domain'
 
 container.register(
@@ -8,5 +11,7 @@ container.register(
 )
 
 container.register('MichiekiUserAccountInMemoryRepositoryDS', {
-  useValue: new Map<string, MichiekiUserAccount>(),
+  useValue: new MichiekiUserAccountInMemoryDS(
+    new Map<string, MichiekiUserAccount>()
+  ),
 })
