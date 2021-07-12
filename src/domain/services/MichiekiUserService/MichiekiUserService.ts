@@ -1,14 +1,16 @@
+import { randomUUID } from 'crypto'
 import { inject, injectable } from 'tsyringe'
 import {
   MichiekiUserRepository,
   MichiekiUserID,
   MichiekiUserDisplayName,
   MichiekiUser,
+  MichiekiUserScreenName,
 } from '@app/domain'
 
 interface CreateUserInput {
-  idPlaneText: string
   displayNamePlateText: string
+  screenNamePlateText: string
 }
 
 @injectable()
@@ -19,9 +21,10 @@ export class MichiekiUserService {
   ) {}
 
   async createUser(input: CreateUserInput) {
-    const id = new MichiekiUserID(input.idPlaneText)
+    const id = new MichiekiUserID(randomUUID())
     const displayName = new MichiekiUserDisplayName(input.displayNamePlateText)
-    return new MichiekiUser(id, displayName)
+    const screenName = new MichiekiUserScreenName(input.screenNamePlateText)
+    return new MichiekiUser(id, displayName, screenName)
   }
 
   async isDuplicatedUserID(id: MichiekiUserID): Promise<boolean> {

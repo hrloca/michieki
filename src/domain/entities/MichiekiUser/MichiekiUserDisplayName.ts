@@ -1,9 +1,14 @@
-class MichiekiUserNameCharacterCountRuleError extends Error {
-  message: '名前の文字は20文字以内です。'
+export class MichiekiUserNameCharacterMaxCountOverError extends Error {
+  message: '名前の文字数の最大値を超えています。'
+}
+
+export class MichiekiUserNameCharacterMinCountOverError extends Error {
+  message: '名前の文字数が最小値を満たしていません。'
 }
 
 export class MichiekiUserDisplayName {
-  private characterCountLimit: 20
+  private readonly characterMaxCount: 20
+  private readonly characterMinCount: 2
 
   constructor(private body: string) {
     this.validate()
@@ -18,8 +23,12 @@ export class MichiekiUserDisplayName {
   }
 
   private validateCharacterCount(nameString: string) {
-    if (nameString.length > this.characterCountLimit) {
-      throw new MichiekiUserNameCharacterCountRuleError()
+    if (nameString.length > this.characterMaxCount) {
+      throw new MichiekiUserNameCharacterMaxCountOverError()
+    }
+
+    if (nameString.length < this.characterMinCount) {
+      throw new MichiekiUserNameCharacterMinCountOverError()
     }
   }
 }

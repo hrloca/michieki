@@ -1,5 +1,9 @@
 import { StringConvertible } from '../../core'
 
+export class MichiekiUserAccountEmailAddressIllegalFormatError extends Error {
+  message: '適切なメールアドレスの形式ではありません'
+}
+
 export class MichiekiUserAccountEmailAddress implements StringConvertible {
   private readonly re: RegExp =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line
@@ -11,7 +15,7 @@ export class MichiekiUserAccountEmailAddress implements StringConvertible {
 
   verify(planetext: string) {
     const result = this.re.test(planetext)
-    if (!result) throw new Error('適切なメールアドレスの形式ではありません')
+    if (!result) throw new MichiekiUserAccountEmailAddressIllegalFormatError()
   }
 
   toString() {

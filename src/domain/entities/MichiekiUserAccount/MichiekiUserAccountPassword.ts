@@ -19,6 +19,16 @@ export class PasswordHasher {
   }
 }
 
+export class MichiekiUserAccountPasswordIllegalFormatError extends Error {
+  message: 'パスワードに不正な文字が含まれています。'
+}
+export class MichiekiUserAccountPasswordMaxCountOverError extends Error {
+  message: 'パスワード長の最大値を超えています。'
+}
+export class MichiekiUserAccountPasswordMinCountOverError extends Error {
+  message: 'パスワード長の最小値を下回っています。'
+}
+
 export class MichiekiUserAccountPassword {
   private hash: string
   private salt: string
@@ -58,13 +68,13 @@ export class MichiekiUserAccountPassword {
 
   private verifySecret(secret: string) {
     if (!this.properCharacter.test(secret))
-      throw new Error('パスワードに不正な文字が含まれています。')
+      throw new MichiekiUserAccountPasswordIllegalFormatError()
 
     if (this.isLessThanMinLength(secret))
-      throw new Error('パスワード長の最小値を下回っています。')
+      throw new MichiekiUserAccountPasswordMinCountOverError()
 
     if (this.isOverMaxLength(secret))
-      throw new Error('パスワード長の最大値を超えています。')
+      throw new MichiekiUserAccountPasswordMaxCountOverError()
   }
 
   private createHashAndSaltFrom(secret: string) {
