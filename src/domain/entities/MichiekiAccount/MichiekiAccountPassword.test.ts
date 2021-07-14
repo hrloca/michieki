@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { MichiekiUserAccountPassword } from './MichiekiUserAccountPassword'
+import { MichiekiUserAccountPassword } from './MichiekiAccountPassword'
 
 describe('passwordのハッシュ化のテスト', () => {
   const secret = '12345678'

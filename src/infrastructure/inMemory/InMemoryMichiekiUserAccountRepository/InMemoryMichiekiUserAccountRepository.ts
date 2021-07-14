@@ -2,22 +2,22 @@ import { inject, injectable } from 'tsyringe'
 
 import {
   MichiekiUserAccountRepository,
-  MichiekiUserAccount,
+  MichiekiAccount,
   MichiekiUserAccountID,
   MichiekiUserAccountEmailAddress,
 } from '@app/domain'
 
-export class MichiekiUserAccountInMemoryDS {
-  constructor(readonly store: Map<string, MichiekiUserAccount>) {}
+export class InMemoryMichiekiUserAccountDS {
+  constructor(readonly store: Map<string, MichiekiAccount>) {}
 }
 
 @injectable()
-export class MichiekiUserAccountInMemoryRepository
+export class InMemoryMichiekiUserAccountRepository
   implements MichiekiUserAccountRepository
 {
   constructor(
-    @inject('MichiekiUserInMemoryRepositoryDS')
-    private readonly data: MichiekiUserAccountInMemoryDS
+    @inject('InMemoryMichiekiUserAccountDS')
+    private readonly data: InMemoryMichiekiUserAccountDS
   ) {}
   /**
    */
@@ -29,13 +29,13 @@ export class MichiekiUserAccountInMemoryRepository
   async findByEmailAddress(emailaddress: MichiekiUserAccountEmailAddress) {
     const emailaddressPlaneText = emailaddress.toString()
     for (let account of this.data.store.values()) {
-      const accountEmailPlaneText = account.MailAddress.toString()
+      const accountEmailPlaneText = account.emailAddress.toString()
       if (emailaddressPlaneText === accountEmailPlaneText) return account
     }
     return null
   }
 
-  async store(user: MichiekiUserAccount) {
+  async store(user: MichiekiAccount) {
     this.data.store.set(user.id.source, user)
     return user.id
   }

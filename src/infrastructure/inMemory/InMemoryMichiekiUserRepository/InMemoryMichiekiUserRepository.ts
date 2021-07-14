@@ -6,15 +6,15 @@ import {
   MichiekiUser,
 } from '@app/domain'
 
-export class MichiekiUserInMemoryDS {
+export class InMemoryMichiekiUserDS {
   constructor(readonly store: Map<string, MichiekiUser>) {}
 }
 
 @injectable()
-export class MichiekiUserInMemoryRepository implements MichiekiUserRepository {
+export class InMemoryMichiekiUserRepository implements MichiekiUserRepository {
   constructor(
-    @inject('MichiekiUserInMemoryRepositoryDS')
-    private readonly data: MichiekiUserInMemoryDS
+    @inject('InMemoryMichiekiUserDS')
+    private readonly data: InMemoryMichiekiUserDS
   ) {}
   /**
    */

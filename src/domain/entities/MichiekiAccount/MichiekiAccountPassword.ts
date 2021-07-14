@@ -1,4 +1,5 @@
 import { randomUUID, pbkdf2Sync } from 'crypto'
+import { StringConvertible, ValueObject } from '../../core'
 
 /**
  * パスワードのハッシュ化
@@ -29,7 +30,9 @@ export class MichiekiUserAccountPasswordMinCountOverError extends Error {
   message: 'パスワード長の最小値を下回っています。'
 }
 
-export class MichiekiUserAccountPassword {
+export class MichiekiUserAccountPassword
+  implements ValueObject<MichiekiUserAccountPassword>, StringConvertible
+{
   private hash: string
   private salt: string
   private maxLength: number = 24
@@ -50,6 +53,10 @@ export class MichiekiUserAccountPassword {
       this.createHashAndSaltFrom(hashOrSecret)
       return
     }
+  }
+
+  equals(target: this): boolean {
+    return this.hash === target.hash && this.salt === this.salt
   }
 
   matches(secret: string): boolean {

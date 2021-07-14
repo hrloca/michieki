@@ -1,9 +1,8 @@
-import { randomUUID } from 'crypto'
 import { Entity } from '../../core'
 import { MichiekiUserID } from '../MichiekiUser'
-import { MichiekiUserAccountPassword } from './MichiekiUserAccountPassword'
-import { MichiekiUserAccountEmailAddress } from './MichiekiUserAccountEmailAddress'
-import { MichiekiUserAccountID } from './MichiekiUserAccountID'
+import { MichiekiUserAccountPassword } from './MichiekiAccountPassword'
+import { MichiekiUserAccountEmailAddress } from './MichiekiAccountEmailAddress'
+import { MichiekiUserAccountID } from './MichiekiAccountID'
 
 export interface MichiekiUserAccountCreateInput {
   secret: string
@@ -11,12 +10,12 @@ export interface MichiekiUserAccountCreateInput {
   userId: MichiekiUserID
 }
 
-export class MichiekiUserAccount extends Entity<MichiekiUserAccountID> {
+export class MichiekiAccount extends Entity<MichiekiUserAccountID> {
   constructor(
     readonly id: MichiekiUserAccountID,
     readonly userId: MichiekiUserID,
     readonly password: MichiekiUserAccountPassword,
-    readonly MailAddress: MichiekiUserAccountEmailAddress
+    readonly emailAddress: MichiekiUserAccountEmailAddress
   ) {
     super()
   }

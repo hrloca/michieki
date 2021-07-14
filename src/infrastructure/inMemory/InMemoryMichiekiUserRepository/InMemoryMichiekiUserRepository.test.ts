@@ -1,9 +1,9 @@
 import 'reflect-metadata'
 import { randomUUID } from 'crypto'
 import {
-  MichiekiUserInMemoryRepository,
-  MichiekiUserInMemoryDS,
-} from './MichiekiUserInMemoryRepository'
+  InMemoryMichiekiUserRepository,
+  InMemoryMichiekiUserDS,
+} from './InMemoryMichiekiUserRepository'
 import {
   MichiekiUserID,
   MichiekiUser,
@@ -12,7 +12,7 @@ import {
 } from '@app/domain'
 
 describe('MichiekiUserInMemoryRepository test.', () => {
-  const ds = new MichiekiUserInMemoryDS(new Map<string, MichiekiUser>())
+  const ds = new InMemoryMichiekiUserDS(new Map<string, MichiekiUser>())
 
   const aIdSource = randomUUID()
   const a = new MichiekiUser(
@@ -31,7 +31,7 @@ describe('MichiekiUserInMemoryRepository test.', () => {
   ds.store.set(a.id.source, a)
   ds.store.set(b.id.source, b)
 
-  const repos = new MichiekiUserInMemoryRepository(ds)
+  const repos = new InMemoryMichiekiUserRepository(ds)
 
   it('IDで対象のMichiekiUserが取得できる', async () => {
     const result = await repos.findById(new MichiekiUserID(aIdSource))

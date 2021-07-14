@@ -1,32 +1,17 @@
 import { injectable } from 'tsyringe'
 import {
   MichiekiUserAccountService,
-  MichiekiUserService,
   MichiekiUserAccountEmailAddress,
 } from '@app/domain'
 
 import { SignUpUseCase } from './SignUpUseCase'
-import {
-  SignUpEmailAdressDuplicatedError,
-  SignUpUserScreenNameDuplicatedError,
-} from './SignUpErrors'
+import { SignUpEmailAdressDuplicatedError } from './SignUpErrors'
 
 @injectable()
 export class SignUpInteractor implements SignUpUseCase {
-  constructor(
-    private readonly accountservice: MichiekiUserAccountService,
-    private readonly userservice: MichiekiUserService
-  ) {}
-
-  async verifyMailAdress(emailAdressPlaneText: string): Promise<null | Error> {
-    const mailaddress = new MichiekiUserAccountEmailAddress(
-      emailAdressPlaneText
-    )
-    const isDuplicated = await this.accountservice.isDuplicatedEmailAddress(
-      mailaddress
-    )
-    if (isDuplicated) throw new SignUpEmailAdressDuplicatedError()
-
-    return null
-  }
+  constructor(private readonly accountservice: MichiekiUserAccountService) {}
+  async verifyEmailAddress(emailAddressPlaneText: string) {}
+  async authenticationEmailAddress(emailAddressPlaneText: string) {}
+  async authenticationEmailAddressByCode(code: string) {}
+  async verifyPassword(passwordPlaneText: string) {}
 }

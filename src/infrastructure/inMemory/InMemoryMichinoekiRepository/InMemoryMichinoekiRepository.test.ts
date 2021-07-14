@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { MichinoekiInMemoryRepository } from './MichinoekiInMemoruRepository'
+import { InMemoryMichinoekiRepository } from './InMemoryMichinoekiRepository'
 import {
   MichinoekiID,
   MichinoekiCoordinates,
@@ -10,7 +10,7 @@ import { michinoekiJson } from '../resources'
 import { createLogger } from '@app/core'
 
 describe('MichinoekiStaticRepository', () => {
-  const repos = new MichinoekiInMemoryRepository(michinoekiJson, createLogger())
+  const repos = new InMemoryMichinoekiRepository(michinoekiJson, createLogger())
 
   it('全件取得できること　', async () => {
     const result = await repos.findAll()

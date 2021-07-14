@@ -12,7 +12,7 @@ import {
 } from '@app/domain/entities/Michinoeki'
 
 @injectable()
-export class MichinoekiInMemoryRepository implements MichinoekiRepository {
+export class InMemoryMichinoekiRepository implements MichinoekiRepository {
   log: Logger
   constructor(
     @inject('MichinoekiJson') private json: MichinoekiJson,

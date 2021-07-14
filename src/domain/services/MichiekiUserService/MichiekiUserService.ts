@@ -26,9 +26,4 @@ export class MichiekiUserService {
     const screenName = new MichiekiUserScreenName(input.screenNamePlateText)
     return new MichiekiUser(id, displayName, screenName)
   }
-
-  async isDuplicatedUserID(id: MichiekiUserID): Promise<boolean> {
-    const account = await this.userRepos.findById(id)
-    return !!account
-  }
 }

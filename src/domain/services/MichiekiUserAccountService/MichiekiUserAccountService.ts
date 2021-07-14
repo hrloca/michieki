@@ -6,7 +6,7 @@ import {
   MichiekiUserAccountRepository,
   MichiekiUserAccountEmailAddress,
   MichiekiUserAccountID,
-  MichiekiUserAccount,
+  MichiekiAccount,
   MichiekiUserID,
 } from '@app/domain'
 
@@ -30,7 +30,7 @@ export class MichiekiUserAccountService {
     )
     const id = new MichiekiUserAccountID(randomUUID())
 
-    return new MichiekiUserAccount(id, input.userId, password, email)
+    return new MichiekiAccount(id, input.userId, password, email)
   }
 
   async storeUserAccount(input: CreateUserAccountInput) {

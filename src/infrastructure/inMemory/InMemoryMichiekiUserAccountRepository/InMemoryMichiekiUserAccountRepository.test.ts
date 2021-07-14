@@ -1,18 +1,18 @@
 import 'reflect-metadata'
 import {
-  MichiekiUserAccountInMemoryRepository,
-  MichiekiUserAccountInMemoryDS,
-} from './MichiekiUserAccountInMemoryRepository'
+  InMemoryMichiekiUserAccountRepository,
+  InMemoryMichiekiUserAccountDS,
+} from './InMemoryMichiekiUserAccountRepository'
 import {
   MichiekiUserAccountID,
   MichiekiUserAccountPassword,
   MichiekiUserAccountEmailAddress,
-  MichiekiUserAccount,
+  MichiekiAccount,
   MichiekiUserID,
 } from '@app/domain'
 
 describe('MichiekiUserAccountInMemoryRepository test.', () => {
-  const account = new MichiekiUserAccount(
+  const account = new MichiekiAccount(
     new MichiekiUserAccountID('account'),
     new MichiekiUserID('user'),
     new MichiekiUserAccountPassword('hash', 'salt'),
@@ -20,20 +20,20 @@ describe('MichiekiUserAccountInMemoryRepository test.', () => {
   )
 
   it('MichiekiUserAccountを登録できる', async () => {
-    const data = new MichiekiUserAccountInMemoryDS(
-      new Map<string, MichiekiUserAccount>()
+    const data = new InMemoryMichiekiUserAccountDS(
+      new Map<string, MichiekiAccount>()
     )
-    const repos = new MichiekiUserAccountInMemoryRepository(data)
+    const repos = new InMemoryMichiekiUserAccountRepository(data)
     await repos.store(account)
 
     expect(data.store.get('account')).toBe(account)
   })
 
   it('IDで対象のMichiekiUserAccountが取得できる', async () => {
-    const data = new MichiekiUserAccountInMemoryDS(
-      new Map<string, MichiekiUserAccount>()
+    const data = new InMemoryMichiekiUserAccountDS(
+      new Map<string, MichiekiAccount>()
     )
-    const repos = new MichiekiUserAccountInMemoryRepository(data)
+    const repos = new InMemoryMichiekiUserAccountRepository(data)
     await repos.store(account)
 
     const acc = await repos.findById(new MichiekiUserAccountID('account'))
@@ -41,16 +41,16 @@ describe('MichiekiUserAccountInMemoryRepository test.', () => {
   })
 
   it('MichiekiUserAccountを更新できる', async () => {
-    const data = new MichiekiUserAccountInMemoryDS(
-      new Map<string, MichiekiUserAccount>()
+    const data = new InMemoryMichiekiUserAccountDS(
+      new Map<string, MichiekiAccount>()
     )
-    const repos = new MichiekiUserAccountInMemoryRepository(data)
+    const repos = new InMemoryMichiekiUserAccountRepository(data)
     await repos.store(account)
 
     const acc = await repos.findById(new MichiekiUserAccountID('account'))
     if (!acc) throw new Error('アカウントが取得できていない')
 
-    const updatedAccount = new MichiekiUserAccount(
+    const updatedAccount = new MichiekiAccount(
       acc.id,
       acc.userId,
       acc.password,
@@ -65,6 +65,6 @@ describe('MichiekiUserAccountInMemoryRepository test.', () => {
     if (!maybeUpdatedAccount)
       throw new Error('更新後のアカウントが取得できていない')
 
-    expect(maybeUpdatedAccount.MailAddress.toString()).toBe('hoge3@gmail.com')
+    expect(maybeUpdatedAccount.emailAddress.toString()).toBe('hoge3@gmail.com')
   })
 })

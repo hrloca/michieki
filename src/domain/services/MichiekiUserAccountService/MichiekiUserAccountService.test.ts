@@ -1,23 +1,23 @@
 import 'reflect-metadata'
 import {
   MichiekiUserAccountEmailAddress,
-  MichiekiUserAccount,
+  MichiekiAccount,
   MichiekiUserID,
 } from '@app/domain'
 
 import {
-  MichiekiUserAccountInMemoryRepository,
-  MichiekiUserAccountInMemoryDS,
+  InMemoryMichiekiUserAccountRepository,
+  InMemoryMichiekiUserAccountDS,
 } from '@app/infrastructure'
 
 import { MichiekiUserAccountService } from './MichiekiUserAccountService'
 
 const createService = () => {
-  const accountDS = new MichiekiUserAccountInMemoryDS(
-    new Map<string, MichiekiUserAccount>()
+  const accountDS = new InMemoryMichiekiUserAccountDS(
+    new Map<string, MichiekiAccount>()
   )
 
-  const accountRespos = new MichiekiUserAccountInMemoryRepository(accountDS)
+  const accountRespos = new InMemoryMichiekiUserAccountRepository(accountDS)
   return new MichiekiUserAccountService(accountRespos)
 }
 
