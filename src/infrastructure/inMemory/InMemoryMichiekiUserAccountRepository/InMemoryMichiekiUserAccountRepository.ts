@@ -3,8 +3,8 @@ import { inject, injectable } from 'tsyringe'
 import {
   MichiekiUserAccountRepository,
   MichiekiAccount,
-  MichiekiUserAccountID,
-  MichiekiUserAccountEmailAddress,
+  MichiekiAccountID,
+  MichiekiAccountEmailAddress,
 } from '@app/domain'
 
 export class InMemoryMichiekiUserAccountDS {
@@ -21,12 +21,12 @@ export class InMemoryMichiekiUserAccountRepository
   ) {}
   /**
    */
-  async findById(id: MichiekiUserAccountID) {
+  async findById(id: MichiekiAccountID) {
     const user = this.data.store.get(id.source) || null
     return user
   }
 
-  async findByEmailAddress(emailaddress: MichiekiUserAccountEmailAddress) {
+  async findByEmailAddress(emailaddress: MichiekiAccountEmailAddress) {
     const emailaddressPlaneText = emailaddress.toString()
     for (let account of this.data.store.values()) {
       const accountEmailPlaneText = account.emailAddress.toString()

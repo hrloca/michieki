@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import {
-  MichiekiUserAccountEmailAddress,
+  MichiekiAccountEmailAddress,
   MichiekiAccount,
   MichiekiUserID,
 } from '@app/domain'
@@ -54,15 +54,15 @@ describe('MichiekiUserAccountService test.', () => {
     await createAccounts(service)
 
     const isDuplicated = await service.isDuplicatedEmailAddress(
-      new MichiekiUserAccountEmailAddress('hoge@gmail.com')
+      new MichiekiAccountEmailAddress('hoge@gmail.com')
     )
 
     const isDuplicated2 = await service.isDuplicatedEmailAddress(
-      new MichiekiUserAccountEmailAddress('hoge2@gmail.com')
+      new MichiekiAccountEmailAddress('hoge2@gmail.com')
     )
 
     const isDuplicated3 = await service.isDuplicatedEmailAddress(
-      new MichiekiUserAccountEmailAddress('hog@gmail.com')
+      new MichiekiAccountEmailAddress('hog@gmail.com')
     )
 
     expect(isDuplicated).toBe(true)

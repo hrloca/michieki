@@ -4,19 +4,19 @@ import {
   InMemoryMichiekiUserAccountDS,
 } from './InMemoryMichiekiUserAccountRepository'
 import {
-  MichiekiUserAccountID,
-  MichiekiUserAccountPassword,
-  MichiekiUserAccountEmailAddress,
+  MichiekiAccountID,
+  MichiekiAccountPassword,
+  MichiekiAccountEmailAddress,
   MichiekiAccount,
   MichiekiUserID,
 } from '@app/domain'
 
 describe('MichiekiUserAccountInMemoryRepository test.', () => {
   const account = new MichiekiAccount(
-    new MichiekiUserAccountID('account'),
+    new MichiekiAccountID('account'),
     new MichiekiUserID('user'),
-    new MichiekiUserAccountPassword('hash', 'salt'),
-    new MichiekiUserAccountEmailAddress('hoge@gmail.com')
+    new MichiekiAccountPassword('hash', 'salt'),
+    new MichiekiAccountEmailAddress('hoge@gmail.com')
   )
 
   it('MichiekiUserAccountを登録できる', async () => {
@@ -36,7 +36,7 @@ describe('MichiekiUserAccountInMemoryRepository test.', () => {
     const repos = new InMemoryMichiekiUserAccountRepository(data)
     await repos.store(account)
 
-    const acc = await repos.findById(new MichiekiUserAccountID('account'))
+    const acc = await repos.findById(new MichiekiAccountID('account'))
     expect(acc).toBe(account)
   })
 
@@ -47,20 +47,20 @@ describe('MichiekiUserAccountInMemoryRepository test.', () => {
     const repos = new InMemoryMichiekiUserAccountRepository(data)
     await repos.store(account)
 
-    const acc = await repos.findById(new MichiekiUserAccountID('account'))
+    const acc = await repos.findById(new MichiekiAccountID('account'))
     if (!acc) throw new Error('アカウントが取得できていない')
 
     const updatedAccount = new MichiekiAccount(
       acc.id,
       acc.userId,
       acc.password,
-      new MichiekiUserAccountEmailAddress('hoge3@gmail.com')
+      new MichiekiAccountEmailAddress('hoge3@gmail.com')
     )
 
     await repos.store(updatedAccount)
 
     const maybeUpdatedAccount = await repos.findById(
-      new MichiekiUserAccountID('account')
+      new MichiekiAccountID('account')
     )
     if (!maybeUpdatedAccount)
       throw new Error('更新後のアカウントが取得できていない')

@@ -1,13 +1,13 @@
 import {
-  MichiekiUserAccount,
-  MichiekiUserAccountID,
-  MichiekiUserAccountEmailAddress,
+  MichiekiAccount,
+  MichiekiAccountID,
+  MichiekiAccountEmailAddress,
 } from '@app/domain'
 
 export interface MichiekiUserAccountRepository {
-  store(account: MichiekiUserAccount): Promise<MichiekiUserAccountID>
-  findById(id: MichiekiUserAccountID): Promise<MichiekiUserAccount | null>
+  store(account: MichiekiAccount): Promise<MichiekiAccountID>
+  findById(id: MichiekiAccountID): Promise<MichiekiAccount | null>
   findByEmailAddress(
-    emailaddress: MichiekiUserAccountEmailAddress
-  ): Promise<MichiekiUserAccount | null>
+    emailaddress: MichiekiAccountEmailAddress
+  ): Promise<MichiekiAccount | null>
 }

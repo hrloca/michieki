@@ -1,7 +1,7 @@
 import { injectable } from 'tsyringe'
 import {
   MichiekiUserAccountService,
-  MichiekiUserAccountEmailAddress,
+  MichiekiAccountEmailAddress,
 } from '@app/domain'
 
 import { SignUpUseCase } from './SignUpUseCase'

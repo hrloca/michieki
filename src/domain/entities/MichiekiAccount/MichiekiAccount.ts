@@ -1,8 +1,8 @@
 import { Entity } from '../../core'
 import { MichiekiUserID } from '../MichiekiUser'
-import { MichiekiUserAccountPassword } from './MichiekiAccountPassword'
-import { MichiekiUserAccountEmailAddress } from './MichiekiAccountEmailAddress'
-import { MichiekiUserAccountID } from './MichiekiAccountID'
+import { MichiekiAccountPassword } from './MichiekiAccountPassword'
+import { MichiekiAccountEmailAddress } from './MichiekiAccountEmailAddress'
+import { MichiekiAccountID } from './MichiekiAccountID'
 
 export interface MichiekiUserAccountCreateInput {
   secret: string
@@ -10,12 +10,12 @@ export interface MichiekiUserAccountCreateInput {
   userId: MichiekiUserID
 }
 
-export class MichiekiAccount extends Entity<MichiekiUserAccountID> {
+export class MichiekiAccount extends Entity<MichiekiAccountID> {
   constructor(
-    readonly id: MichiekiUserAccountID,
+    readonly id: MichiekiAccountID,
     readonly userId: MichiekiUserID,
-    readonly password: MichiekiUserAccountPassword,
-    readonly emailAddress: MichiekiUserAccountEmailAddress
+    readonly password: MichiekiAccountPassword,
+    readonly emailAddress: MichiekiAccountEmailAddress
   ) {
     super()
   }

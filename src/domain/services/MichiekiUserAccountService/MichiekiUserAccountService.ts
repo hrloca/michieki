@@ -1,11 +1,11 @@
 import { randomUUID } from 'crypto'
 import { inject, injectable } from 'tsyringe'
-import { MichiekiUserAccountPassword } from '@app/domain'
+import { MichiekiAccountPassword } from '@app/domain'
 
 import {
   MichiekiUserAccountRepository,
-  MichiekiUserAccountEmailAddress,
-  MichiekiUserAccountID,
+  MichiekiAccountEmailAddress,
+  MichiekiAccountID,
   MichiekiAccount,
   MichiekiUserID,
 } from '@app/domain'
@@ -24,11 +24,9 @@ export class MichiekiUserAccountService {
   ) {}
 
   private createUserAccount(input: CreateUserAccountInput) {
-    const password = new MichiekiUserAccountPassword(input.secret)
-    const email = new MichiekiUserAccountEmailAddress(
-      input.emailadressPlaneText
-    )
-    const id = new MichiekiUserAccountID(randomUUID())
+    const password = new MichiekiAccountPassword(input.secret)
+    const email = new MichiekiAccountEmailAddress(input.emailadressPlaneText)
+    const id = new MichiekiAccountID(randomUUID())
 
     return new MichiekiAccount(id, input.userId, password, email)
   }
@@ -40,13 +38,13 @@ export class MichiekiUserAccountService {
   }
 
   async isDuplicatedEmailAddress(
-    emailAddress: MichiekiUserAccountEmailAddress
+    emailAddress: MichiekiAccountEmailAddress
   ): Promise<boolean> {
     const account = await this.accountRepos.findByEmailAddress(emailAddress)
     return !!account
   }
 
-  async isDuplicatedAccountId(id: MichiekiUserAccountID): Promise<boolean> {
+  async isDuplicatedAccountId(id: MichiekiAccountID): Promise<boolean> {
     const account = await this.accountRepos.findById(id)
     return !!account
   }

@@ -14,7 +14,7 @@
 - パスワードの形式ルールに則った検証
 - (パスワードの利用可否)
 
-## UserAccountRegister
+## AccountRegister
 
 - アカウント登録
 
