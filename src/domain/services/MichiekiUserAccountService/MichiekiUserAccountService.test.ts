@@ -6,18 +6,18 @@ import {
 } from '@app/domain'
 
 import {
-  InMemoryMichiekiUserAccountRepository,
-  InMemoryMichiekiUserAccountDS,
+  InMemoryMichiekiAccountRepository,
+  InMemoryMichiekiAccountDS,
 } from '@app/infrastructure'
 
 import { MichiekiUserAccountService } from './MichiekiUserAccountService'
 
 const createService = () => {
-  const accountDS = new InMemoryMichiekiUserAccountDS(
+  const accountDS = new InMemoryMichiekiAccountDS(
     new Map<string, MichiekiAccount>()
   )
 
-  const accountRespos = new InMemoryMichiekiUserAccountRepository(accountDS)
+  const accountRespos = new InMemoryMichiekiAccountRepository(accountDS)
   return new MichiekiUserAccountService(accountRespos)
 }
 

@@ -4,7 +4,7 @@ import {
   MichiekiAccountEmailAddress,
 } from '@app/domain'
 
-export interface MichiekiUserAccountRepository {
+export interface MichiekiAccountRepository {
   store(account: MichiekiAccount): Promise<MichiekiAccountID>
   findById(id: MichiekiAccountID): Promise<MichiekiAccount | null>
   findByEmailAddress(

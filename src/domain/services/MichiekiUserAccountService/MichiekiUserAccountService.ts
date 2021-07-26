@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe'
 import { MichiekiAccountPassword } from '@app/domain'
 
 import {
-  MichiekiUserAccountRepository,
+  MichiekiAccountRepository,
   MichiekiAccountEmailAddress,
   MichiekiAccountID,
   MichiekiAccount,
@@ -20,7 +20,7 @@ interface CreateUserAccountInput {
 export class MichiekiUserAccountService {
   constructor(
     @inject('MichiekiUserAccountRepository')
-    readonly accountRepos: MichiekiUserAccountRepository
+    readonly accountRepos: MichiekiAccountRepository
   ) {}
 
   private createUserAccount(input: CreateUserAccountInput) {

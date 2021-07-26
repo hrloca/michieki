@@ -1,23 +1,23 @@
 import { inject, injectable } from 'tsyringe'
 
 import {
-  MichiekiUserAccountRepository,
+  MichiekiAccountRepository,
   MichiekiAccount,
   MichiekiAccountID,
   MichiekiAccountEmailAddress,
 } from '@app/domain'
 
-export class InMemoryMichiekiUserAccountDS {
+export class InMemoryMichiekiAccountDS {
   constructor(readonly store: Map<string, MichiekiAccount>) {}
 }
 
 @injectable()
-export class InMemoryMichiekiUserAccountRepository
-  implements MichiekiUserAccountRepository
+export class InMemoryMichiekiAccountRepository
+  implements MichiekiAccountRepository
 {
   constructor(
     @inject('InMemoryMichiekiUserAccountDS')
-    private readonly data: InMemoryMichiekiUserAccountDS
+    private readonly data: InMemoryMichiekiAccountDS
   ) {}
   /**
    */
