@@ -1,3 +1,4 @@
+import validator from 'validator'
 import { StringConvertible, ValueObject } from '../../core'
 
 export class MichiekiAccountEmailAddressIllegalFormatError extends Error {
@@ -7,11 +8,9 @@ export class MichiekiAccountEmailAddressIllegalFormatError extends Error {
 export class MichiekiAccountEmailAddress
   implements ValueObject<MichiekiAccountEmailAddress>, StringConvertible
 {
-  private readonly re: RegExp =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line
   private body: string
   constructor(emailadressPlanetext: string) {
-    this.verify(emailadressPlanetext)
+    this.validate(emailadressPlanetext)
     this.body = emailadressPlanetext
   }
 
@@ -23,8 +22,8 @@ export class MichiekiAccountEmailAddress
     return this.body
   }
 
-  verify(planetext: string) {
-    const result = this.re.test(planetext)
+  private validate(planetext: string) {
+    const result = validator.isEmail(planetext)
     if (!result) throw new MichiekiAccountEmailAddressIllegalFormatError()
   }
 }

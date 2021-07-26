@@ -14,9 +14,9 @@ import {
 describe('MichiekiUserAccountInMemoryRepository test.', () => {
   const account = new MichiekiAccount(
     new MichiekiAccountID('account'),
-    new MichiekiUserID('user'),
+    new MichiekiAccountEmailAddress('hoge@gmail.com'),
     new MichiekiAccountPassword('hash', 'salt'),
-    new MichiekiAccountEmailAddress('hoge@gmail.com')
+    new MichiekiUserID('user')
   )
 
   it('MichiekiUserAccountを登録できる', async () => {
@@ -52,9 +52,9 @@ describe('MichiekiUserAccountInMemoryRepository test.', () => {
 
     const updatedAccount = new MichiekiAccount(
       acc.id,
-      acc.userId,
+      new MichiekiAccountEmailAddress('hoge3@gmail.com'),
       acc.password,
-      new MichiekiAccountEmailAddress('hoge3@gmail.com')
+      acc.userId
     )
 
     await repos.store(updatedAccount)

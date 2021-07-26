@@ -1,11 +1,9 @@
 import { StringConvertible, ValueObject } from '../../core'
 
-export class MichiekiUserScreenNameMaxCountOverError extends Error {
-  message: `idの長さが最大値を超えています。`
-}
-
-export class MichiekiUserScreenNameMinCountOverError extends Error {
-  message: `idの長さが最小値を下回っています。`
+export class MichiekiUserScreenNameError extends Error {
+  constructor(readonly overMinCount: boolean, readonly overMaxCoun: boolean) {
+    super()
+  }
 }
 
 export class MichiekiUserScreenName
@@ -24,10 +22,11 @@ export class MichiekiUserScreenName
   }
 
   verifyScreenName() {
-    if (this.screenName.length > this.maxCount)
-      throw new MichiekiUserScreenNameMaxCountOverError()
+    const overMinCount = this.screenName.length > this.maxCount
+    const overMaxCoun = this.screenName.length < this.minCount
 
-    if (this.screenName.length < this.minCount)
-      throw new MichiekiUserScreenNameMinCountOverError()
+    if (overMinCount || overMaxCoun) {
+      throw new MichiekiUserScreenNameError(overMinCount, overMaxCoun)
+    }
   }
 }

@@ -28,7 +28,7 @@ export class MichiekiUserAccountService {
     const email = new MichiekiAccountEmailAddress(input.emailadressPlaneText)
     const id = new MichiekiAccountID(randomUUID())
 
-    return new MichiekiAccount(id, input.userId, password, email)
+    return new MichiekiAccount(id, email, password, input.userId)
   }
 
   async storeUserAccount(input: CreateUserAccountInput) {

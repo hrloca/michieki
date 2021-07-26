@@ -11,16 +11,27 @@ export interface MichiekiUserAccountCreateInput {
 }
 
 export class MichiekiAccount extends Entity<MichiekiAccountID> {
+  userId?: MichiekiUserID
   constructor(
     readonly id: MichiekiAccountID,
-    readonly userId: MichiekiUserID,
+    readonly emailAddress: MichiekiAccountEmailAddress,
     readonly password: MichiekiAccountPassword,
-    readonly emailAddress: MichiekiAccountEmailAddress
+    userId?: MichiekiUserID
   ) {
     super()
+    this.userId = userId
   }
 
   authentication(secret: string): boolean {
     return this.password.matches(secret)
+  }
+
+  link(userId: MichiekiUserID) {
+    return new MichiekiAccount(
+      this.id,
+      this.emailAddress,
+      this.password,
+      userId
+    )
   }
 }
