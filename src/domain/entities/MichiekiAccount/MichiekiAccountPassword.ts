@@ -20,10 +20,6 @@ export class PasswordHasher {
   }
 }
 
-export class MichiekiAccountPasswordIllegalFormatError extends Error {}
-export class MichiekiAccountPasswordMaxCountOverError extends Error {}
-export class MichiekiAccountPasswordMinCountOverError extends Error {}
-
 export class MichiekiAccountPasswordError extends Error {
   constructor(
     readonly illegalFormat: boolean,
@@ -32,6 +28,14 @@ export class MichiekiAccountPasswordError extends Error {
   ) {
     super()
   }
+}
+
+export class MichiekiAccountSecret {
+  constructor(readonly secret: string) {}
+}
+
+export class MichiekiAccountPasswordInputForRestore {
+  constructor(readonly hash: string, readonly salt: string) {}
 }
 
 export class MichiekiAccountPassword
@@ -43,18 +47,17 @@ export class MichiekiAccountPassword
   private minLength: number = 8
   private properCharacter: RegExp = /^[0-9a-zA-Z]*$/
 
-  constructor(secret: string)
-  constructor(hash: string, salt: string)
-
-  constructor(hashOrSecret: string, salt?: string) {
-    if (hashOrSecret && salt) {
-      this.hash = hashOrSecret
-      this.salt = salt
+  constructor(
+    input: MichiekiAccountSecret | MichiekiAccountPasswordInputForRestore
+  ) {
+    if (input instanceof MichiekiAccountPasswordInputForRestore) {
+      this.hash = input.hash
+      this.salt = input.salt
       return
     }
 
-    if (hashOrSecret) {
-      this.createHashAndSaltFrom(hashOrSecret)
+    if (input instanceof MichiekiAccountSecret) {
+      this.createHashAndSaltFrom(input.secret)
       return
     }
   }

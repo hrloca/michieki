@@ -1,9 +1,13 @@
 import 'reflect-metadata'
-import { MichiekiAccountPassword } from './MichiekiAccountPassword'
+import {
+  MichiekiAccountPassword,
+  MichiekiAccountSecret,
+} from './MichiekiAccountPassword'
 
 describe('passwordのハッシュ化のテスト', () => {
   const secret = '12345678'
-  const pass = new MichiekiAccountPassword(secret)
+  const input = new MichiekiAccountSecret(secret)
+  const pass = new MichiekiAccountPassword(input)
 
   it('パスワードが一致すれば、検証結果が成功する事', async () => {
     const result = pass.matches('12345678')
@@ -18,7 +22,7 @@ describe('passwordのハッシュ化のテスト', () => {
   it('パスワードが一致しても、saltが違えばhash値は同一にならないこと', async () => {
     const testablePass = pass as any
     const hash = testablePass.hash
-    const hash2 = new MichiekiAccountPassword(secret)
+    const hash2 = new MichiekiAccountPassword(input)
 
     expect(hash).not.toBe(hash2)
   })
