@@ -1,24 +1,6 @@
-import { randomUUID, pbkdf2Sync } from 'crypto'
-import { StringConvertible, ValueObject } from '../../core'
-
-/**
- * パスワードのハッシュ化
- */
-export class PasswordHasher {
-  private readonly iterations: number = 4000
-  private readonly keylen: number = 64
-  private readonly digest: string = 'sha512'
-
-  hashing(secret: string, salt: string): string {
-    return pbkdf2Sync(
-      secret,
-      salt,
-      this.iterations,
-      this.keylen,
-      this.digest
-    ).toString('hex')
-  }
-}
+import { randomUUID } from 'crypto'
+import { StringConvertible, ValueObject } from '../../../core'
+import { MichiekiPasswordHasher } from './MichiekiPasswordHasher'
 
 export class MichiekiAccountPasswordError extends Error {
   constructor(
@@ -46,6 +28,10 @@ export class MichiekiAccountPassword
   private maxLength: number = 24
   private minLength: number = 8
   private properCharacter: RegExp = /^[0-9a-zA-Z]*$/
+  private hasher: MichiekiPasswordHasher = new MichiekiPasswordHasher()
+
+  constructor(input: MichiekiAccountSecret)
+  constructor(input: MichiekiAccountPasswordInputForRestore)
 
   constructor(
     input: MichiekiAccountSecret | MichiekiAccountPasswordInputForRestore
@@ -67,8 +53,7 @@ export class MichiekiAccountPassword
   }
 
   matches(secret: string): boolean {
-    const hasher = new PasswordHasher()
-    const hash = hasher.hashing(secret, this.salt)
+    const hash = this.hasher.hashing(secret, this.salt)
     return hash === this.hash
   }
 
@@ -96,7 +81,6 @@ export class MichiekiAccountPassword
   private createHashAndSaltFrom(secret: string) {
     this.verifySecret(secret)
     this.salt = randomUUID()
-    const hasher = new PasswordHasher()
-    this.hash = hasher.hashing(secret, this.salt)
+    this.hash = this.hasher.hashing(secret, this.salt)
   }
 }
