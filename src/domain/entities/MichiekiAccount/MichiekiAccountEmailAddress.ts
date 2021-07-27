@@ -1,9 +1,7 @@
 import validator from 'validator'
 import { StringConvertible, ValueObject } from '../../core'
 
-export class MichiekiAccountEmailAddressIllegalFormatError extends Error {
-  message: '適切なメールアドレスの形式ではありません'
-}
+export class MichiekiAccountEmailAddressError extends Error {}
 
 export class MichiekiAccountEmailAddress
   implements ValueObject<MichiekiAccountEmailAddress>, StringConvertible
@@ -24,6 +22,6 @@ export class MichiekiAccountEmailAddress
 
   private validate(planetext: string) {
     const result = validator.isEmail(planetext)
-    if (!result) throw new MichiekiAccountEmailAddressIllegalFormatError()
+    if (!result) throw new MichiekiAccountEmailAddressError()
   }
 }

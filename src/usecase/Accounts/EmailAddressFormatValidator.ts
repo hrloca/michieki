@@ -1,7 +1,7 @@
 import { injectable } from 'tsyringe'
 import {
   MichiekiAccountEmailAddress,
-  MichiekiAccountEmailAddressIllegalFormatError,
+  MichiekiAccountEmailAddressError,
 } from '@app/domain'
 
 @injectable()
@@ -14,7 +14,7 @@ export class EmailAddressFormatValidator {
         massage: null,
       }
     } catch (e) {
-      if (e instanceof MichiekiAccountEmailAddressIllegalFormatError) {
+      if (e instanceof MichiekiAccountEmailAddressError) {
         return {
           valid: true,
           massages: ['適切なメールアドレスの形式ではありません。'],

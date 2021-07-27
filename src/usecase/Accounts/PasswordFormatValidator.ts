@@ -16,7 +16,7 @@ export class PasswordFormatValidator {
     } catch (e) {
       if (e instanceof MichiekiAccountPasswordError) {
         return {
-          valid: true,
+          valid: false,
           massages: [
             e.illegalFormat && '有効なパスワードの形式ではありません。',
             e.overMinCount && 'パスワードの最小値を超えています。',

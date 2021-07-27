@@ -82,4 +82,20 @@ describe('MichiekiUserInMemoryRepository test.', () => {
 
     expect(result3.displayName.toString()).toBe('d:sama')
   })
+
+  it('MichiekiUserをScreenNameで取得できる', async () => {
+    const result = await repos.findByScreenName(
+      new MichiekiUserScreenName('asan')
+    )
+
+    const result2 = await repos.findByScreenName(
+      new MichiekiUserScreenName('hogesan')
+    )
+
+    if (!result) throw new Error('何かがおかしいです')
+
+    expect(result.equals(a)).toBe(true)
+    expect(result.equals(b)).toBe(false)
+    expect(result2).toBe(null)
+  })
 })
