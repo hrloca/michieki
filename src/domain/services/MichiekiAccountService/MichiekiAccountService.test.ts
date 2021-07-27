@@ -10,7 +10,7 @@ import {
   InMemoryMichiekiAccountDS,
 } from '@app/infrastructure'
 
-import { MichiekiUserAccountService } from './MichiekiUserAccountService'
+import { MichiekiAccountService } from './MichiekiAccountService'
 
 const createService = () => {
   const accountDS = new InMemoryMichiekiAccountDS(
@@ -18,10 +18,10 @@ const createService = () => {
   )
 
   const accountRespos = new InMemoryMichiekiAccountRepository(accountDS)
-  return new MichiekiUserAccountService(accountRespos)
+  return new MichiekiAccountService(accountRespos)
 }
 
-const createAccounts = async (service: MichiekiUserAccountService) => {
+const createAccounts = async (service: MichiekiAccountService) => {
   const account1 = await service.storeUserAccount({
     secret: '12345678',
     emailadressPlaneText: 'hoge@gmail.com',

@@ -8,6 +8,11 @@ import {
   MichiekiUserRepository,
 } from '@app/domain'
 
+export interface UserRegisterInput {
+  displayName: string
+  screenName: string
+}
+
 @injectable()
 export class UserRegister {
   constructor(
@@ -15,10 +20,10 @@ export class UserRegister {
     readonly userRepos: MichiekiUserRepository
   ) {}
 
-  async register(displayNamePlaneText: string, screenNamePlaneText: string) {
+  async register(input: UserRegisterInput) {
     const id = new MichiekiUserID(randomUUID())
-    const displayName = new MichiekiUserDisplayName(displayNamePlaneText)
-    const screenName = new MichiekiUserScreenName(screenNamePlaneText)
+    const displayName = new MichiekiUserDisplayName(input.displayName)
+    const screenName = new MichiekiUserScreenName(input.screenName)
 
     const user = new MichiekiUser(id, displayName, screenName)
 

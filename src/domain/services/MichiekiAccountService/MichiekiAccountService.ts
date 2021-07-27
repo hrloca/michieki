@@ -17,7 +17,7 @@ interface CreateUserAccountInput {
 }
 
 @injectable()
-export class MichiekiUserAccountService {
+export class MichiekiAccountService {
   constructor(
     @inject('MichiekiUserAccountRepository')
     readonly accountRepos: MichiekiAccountRepository
