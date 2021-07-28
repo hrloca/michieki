@@ -14,20 +14,20 @@ export class MichiekiUserDisplayName
   private readonly characterMaxCount: 20
   private readonly characterMinCount: 2
 
-  constructor(private body: string) {
+  constructor(private readonly value: string) {
     this.validate()
   }
 
   equals(target: MichiekiUserDisplayName) {
-    return this.body === target.body
+    return this.value === target.value
   }
 
   toString() {
-    return this.body
+    return this.value
   }
 
   private validate() {
-    this.validateCharacterCount(this.body)
+    this.validateCharacterCount(this.value)
   }
 
   private validateCharacterCount(nameString: string) {

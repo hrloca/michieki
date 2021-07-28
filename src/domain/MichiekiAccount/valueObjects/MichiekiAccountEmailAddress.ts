@@ -6,18 +6,18 @@ export class MichiekiAccountEmailAddressError extends Error {}
 export class MichiekiAccountEmailAddress
   implements ValueObject<MichiekiAccountEmailAddress>, StringConvertible
 {
-  private body: string
+  private value: string
   constructor(emailadressPlanetext: string) {
     this.validate(emailadressPlanetext)
-    this.body = emailadressPlanetext
+    this.value = emailadressPlanetext
   }
 
   equals(target: this): boolean {
-    return this.body === target.body
+    return this.value === target.value
   }
 
   toString(): string {
-    return this.body
+    return this.value
   }
 
   private validate(planetext: string) {
