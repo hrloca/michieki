@@ -3,7 +3,7 @@ import {
   MichinoekiID,
   MichinoekiName,
   MichinoekiPrefecture,
-} from 'domain/entities/Michinoeki'
+} from '@app/domain'
 
 export interface MichinoekiRepository {
   findAll(): Promise<Michinoeki[]>

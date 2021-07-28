@@ -5,7 +5,7 @@ import {
   MichinoekiCoordinates,
   MichinoekiName,
   MichinoekiPrefecture,
-} from '@app/domain/entities/Michinoeki'
+} from '@app/domain'
 import { michinoekiJson } from '../resources'
 import { createLogger } from '@app/core'
 

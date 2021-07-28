@@ -1,8 +1,10 @@
 import { Entity } from '../../core'
-import { MichiekiUserID } from '../MichiekiUser'
-import { MichiekiAccountPassword } from './MichiekiAccountPassword'
-import { MichiekiAccountEmailAddress } from './MichiekiAccountEmailAddress'
-import { MichiekiAccountID } from './MichiekiAccountID'
+import { MichiekiUserID } from '../../MichiekiUser'
+import {
+  MichiekiAccountPassword,
+  MichiekiAccountEmailAddress,
+  MichiekiAccountID,
+} from '../valueObjects'
 
 export interface MichiekiUserAccountCreateInput {
   secret: string

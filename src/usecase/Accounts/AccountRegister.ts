@@ -5,6 +5,7 @@ import {
   MichiekiAccountEmailAddress,
   MichiekiAccountID,
   MichiekiAccountPassword,
+  MichiekiAccountSecret,
   MichiekiAccount,
   MichiekiUserID,
 } from '@app/domain'
@@ -19,7 +20,9 @@ export class AccountRegister {
   async register(emailPlaneText: string, passwordPlaneText: string) {
     const id = new MichiekiAccountID(randomUUID())
     const email = new MichiekiAccountEmailAddress(emailPlaneText)
-    const password = new MichiekiAccountPassword(passwordPlaneText)
+    const password = new MichiekiAccountPassword(
+      new MichiekiAccountSecret(passwordPlaneText)
+    )
 
     const account = new MichiekiAccount(id, email, password)
 
@@ -32,7 +35,7 @@ export class AccountRegister {
     const id = new MichiekiAccountID(accountIdPlaneText)
     const account = await this.accountRepos.findById(id)
 
-    if (!account) throw new Error()
+    if (!account) throw new Error('対象のアカウントが存在しません。')
 
     const updatedAccount = account.link(new MichiekiUserID(userIdPlaneText))
 

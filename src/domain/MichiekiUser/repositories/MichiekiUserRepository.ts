@@ -2,7 +2,7 @@ import {
   MichiekiUser,
   MichiekiUserID,
   MichiekiUserScreenName,
-} from 'domain/entities/MichiekiUser'
+} from '@app/domain'
 
 export interface MichiekiUserRepository {
   findById(id: MichiekiUserID): Promise<MichiekiUser | null>

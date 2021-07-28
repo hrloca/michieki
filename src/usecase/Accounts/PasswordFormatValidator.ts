@@ -1,6 +1,7 @@
 import { injectable } from 'tsyringe'
 import {
   MichiekiAccountPassword,
+  MichiekiAccountSecret,
   MichiekiAccountPasswordError,
 } from '@app/domain'
 
@@ -8,7 +9,7 @@ import {
 export class PasswordFormatValidator {
   async validate(emailPlaneText: string) {
     try {
-      new MichiekiAccountPassword(emailPlaneText)
+      new MichiekiAccountPassword(new MichiekiAccountSecret(emailPlaneText))
       return {
         valid: true,
         massage: null,

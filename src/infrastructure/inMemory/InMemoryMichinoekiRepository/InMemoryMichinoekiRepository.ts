@@ -9,7 +9,7 @@ import {
   MichinoekiCoordinates,
   MichinoekiName,
   MichinoekiPrefecture,
-} from '@app/domain/entities/Michinoeki'
+} from '@app/domain'
 
 @injectable()
 export class InMemoryMichinoekiRepository implements MichinoekiRepository {
