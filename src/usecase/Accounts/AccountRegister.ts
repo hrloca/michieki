@@ -1,44 +1,31 @@
-import { randomUUID } from 'crypto'
 import { inject, injectable } from 'tsyringe'
 import {
   MichiekiAccountRepository,
-  MichiekiAccountEmailAddress,
-  MichiekiAccountID,
-  MichiekiAccountPassword,
-  MichiekiAccountSecret,
-  MichiekiAccount,
-  MichiekiUserID,
+  MichiekiAccountFactory,
+  MichiekiAccountService,
 } from '@app/domain'
 
 @injectable()
 export class AccountRegister {
   constructor(
     @inject('MichiekiAccountRepository')
-    readonly accountRepos: MichiekiAccountRepository
+    readonly accountRepos: MichiekiAccountRepository,
+    @inject('MichiekiAccountFactory')
+    readonly accountFactory: MichiekiAccountFactory,
+    readonly accountService: MichiekiAccountService
   ) {}
 
   async register(emailPlaneText: string, passwordPlaneText: string) {
-    const id = new MichiekiAccountID(randomUUID())
-    const email = new MichiekiAccountEmailAddress(emailPlaneText)
-    const password = new MichiekiAccountPassword(
-      new MichiekiAccountSecret(passwordPlaneText)
+    const account = this.accountFactory.create(
+      emailPlaneText,
+      passwordPlaneText
     )
 
-    const account = new MichiekiAccount(id, email, password)
+    if (this.accountService.exists(account))
+      throw new Error('すでにアカウントが存在します。')
 
     await this.accountRepos.store(account)
 
-    return id.toString()
-  }
-
-  async linkUser(accountIdPlaneText: string, userIdPlaneText: string) {
-    const id = new MichiekiAccountID(accountIdPlaneText)
-    const account = await this.accountRepos.findById(id)
-
-    if (!account) throw new Error('対象のアカウントが存在しません。')
-
-    const updatedAccount = account.link(new MichiekiUserID(userIdPlaneText))
-
-    await this.accountRepos.store(updatedAccount)
+    return account.id.toString()
   }
 }

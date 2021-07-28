@@ -14,6 +14,15 @@ export class MichiekiAccountService {
     readonly accountRepos: MichiekiAccountRepository
   ) {}
 
+  duplicated(email: MichiekiAccountEmailAddress): Promise<boolean>
+  duplicated(id: MichiekiAccountID): Promise<boolean>
+  async duplicated(target: MichiekiAccountEmailAddress | MichiekiAccountID) {
+    if (target instanceof MichiekiAccountEmailAddress) {
+      return this.duplicatedEmailAddress(target)
+    }
+    return this.duplicatedId(target)
+  }
+
   async exists(account: MichiekiAccount): Promise<boolean> {
     if (await this.duplicatedEmailAddress(account.emailAddress)) return true
     if (await this.duplicatedId(account.id)) return true
@@ -21,14 +30,14 @@ export class MichiekiAccountService {
     return false
   }
 
-  async duplicatedEmailAddress(
+  private async duplicatedEmailAddress(
     emailAddress: MichiekiAccountEmailAddress
   ): Promise<boolean> {
     const account = await this.accountRepos.findByEmailAddress(emailAddress)
     return !!account
   }
 
-  async duplicatedId(id: MichiekiAccountID): Promise<boolean> {
+  private async duplicatedId(id: MichiekiAccountID): Promise<boolean> {
     const account = await this.accountRepos.findById(id)
     return !!account
   }

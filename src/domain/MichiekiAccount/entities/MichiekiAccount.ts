@@ -6,12 +6,6 @@ import {
   MichiekiAccountID,
 } from '../valueObjects'
 
-export interface MichiekiUserAccountCreateInput {
-  secret: string
-  emailadressPlaneText: string
-  userId: MichiekiUserID
-}
-
 export class MichiekiAccount extends Entity<MichiekiAccountID> {
   userId?: MichiekiUserID
   constructor(
@@ -24,11 +18,11 @@ export class MichiekiAccount extends Entity<MichiekiAccountID> {
     this.userId = userId
   }
 
-  authentication(secret: string): boolean {
+  auth(secret: string): boolean {
     return this.password.matches(secret)
   }
 
-  link(userId: MichiekiUserID) {
+  link(userId: MichiekiUserID): MichiekiAccount {
     return new MichiekiAccount(
       this.id,
       this.emailAddress,

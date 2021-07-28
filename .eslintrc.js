@@ -10,6 +10,7 @@ module.exports = {
     'no-useless-constructor': 'off',
     'arrow-parens': 'off',
     'import/extensions': ['off'],
+    'no-dupe-class-members': 'off',
     // typescript無関係
     'no-magic-numbers': 'off',
     'no-restricted-syntax': 'off',

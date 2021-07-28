@@ -1,20 +1,16 @@
-import { inject, injectable } from 'tsyringe'
+import { injectable } from 'tsyringe'
 import {
-  MichiekiAccountRepository,
+  MichiekiAccountService,
   MichiekiAccountEmailAddress,
 } from '@app/domain'
 
 @injectable()
 export class EmailAddressDuplicateValidator {
-  constructor(
-    @inject('MichiekiAccountRepository')
-    readonly accountRepos: MichiekiAccountRepository
-  ) {}
+  constructor(readonly accountService: MichiekiAccountService) {}
 
   async validate(emailPlaneText: string) {
     const email = new MichiekiAccountEmailAddress(emailPlaneText)
-    const account = await this.accountRepos.findByEmailAddress(email)
-    const valid = !!account
+    const valid = await this.accountService.duplicated(email)
 
     return {
       valid,
