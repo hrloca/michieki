@@ -3,17 +3,17 @@ import { ID } from './ID'
 import { Entity } from './Entity'
 
 export class TestID implements ID {
-  constructor(readonly source: string) {}
+  constructor(readonly value: string) {}
   equals(comparisonTaret: TestID): boolean {
-    return this.source === comparisonTaret.source
+    return this.value === comparisonTaret.value
   }
 }
 
 export class Test3ID implements ID {
-  constructor(readonly source: string) {}
+  constructor(readonly value: string) {}
   hoge() {}
   equals(comparisonTaret: Test3ID): boolean {
-    return this.source === comparisonTaret.source
+    return this.value === comparisonTaret.value
   }
 }
 

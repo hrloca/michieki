@@ -20,7 +20,7 @@ export class InMemoryMichiekiUserRepository implements MichiekiUserRepository {
   /**
    */
   async findById(id: MichiekiUserID) {
-    const user = this.data.store.get(id.source) || null
+    const user = this.data.store.get(id.value) || null
     return user
   }
 
@@ -34,7 +34,7 @@ export class InMemoryMichiekiUserRepository implements MichiekiUserRepository {
   }
 
   async store(user: MichiekiUser) {
-    this.data.store.set(user.id.source, user)
+    this.data.store.set(user.id.value, user)
     return user.id
   }
 }

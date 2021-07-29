@@ -28,8 +28,8 @@ describe('MichiekiUserInMemoryRepository test.', () => {
     new MichiekiUserScreenName('bsan')
   )
 
-  ds.store.set(a.id.source, a)
-  ds.store.set(b.id.source, b)
+  ds.store.set(a.id.value, a)
+  ds.store.set(b.id.value, b)
 
   const repos = new InMemoryMichiekiUserRepository(ds)
 

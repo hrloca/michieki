@@ -18,7 +18,7 @@ export class InMemoryMichiekiAccountRepository
   /**
    */
   async findById(id: MichiekiAccountID) {
-    const user = this.ds.get(id.source) || null
+    const user = this.ds.get(id.value) || null
     return user
   }
 
@@ -32,7 +32,7 @@ export class InMemoryMichiekiAccountRepository
   }
 
   async store(user: MichiekiAccount) {
-    this.ds.set(user.id.source, user)
+    this.ds.set(user.id.value, user)
     return user.id
   }
 }

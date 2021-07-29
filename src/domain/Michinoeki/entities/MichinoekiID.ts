@@ -2,12 +2,12 @@ import { MichinoekiCoordinates } from './MichinoekiCoordinates'
 import { ID } from '../../core'
 
 export class MichinoekiID extends ID {
-  constructor(readonly source: string) {
+  constructor(readonly value: string) {
     super()
   }
 
   toString() {
-    const buffer = Buffer.from(this.source)
+    const buffer = Buffer.from(this.value)
     return buffer.toString('base64')
   }
 

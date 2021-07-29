@@ -3,12 +3,12 @@ import { ValueObject } from './ValueObject'
 
 export abstract class ID implements ValueObject<ID>, StringConvertible {
   constructor() {}
-  abstract source: string
+  abstract value: string
   equals(comparisonTaret: this) {
-    return this.source === comparisonTaret.source
+    return this.value === comparisonTaret.value
   }
 
   toString() {
-    return this.source
+    return this.value
   }
 }
