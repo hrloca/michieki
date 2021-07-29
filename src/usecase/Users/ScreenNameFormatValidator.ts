@@ -1,8 +1,5 @@
 import { injectable } from 'tsyringe'
-import {
-  MichiekiUserScreenName,
-  MichiekiUserScreenNameError,
-} from '@app/domain'
+import { MichiekiUserScreenName, MichiekiUserScreenNameError } from '@app/domain'
 
 @injectable()
 export class ScreenNameFormatValidator {

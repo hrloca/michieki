@@ -6,12 +6,6 @@ export class MichiekiPasswordHasher {
   private readonly digest: string = 'sha512'
 
   hashing(secret: string, salt: string): string {
-    return pbkdf2Sync(
-      secret,
-      salt,
-      this.iterations,
-      this.keylen,
-      this.digest
-    ).toString('hex')
+    return pbkdf2Sync(secret, salt, this.iterations, this.keylen, this.digest).toString('hex')
   }
 }

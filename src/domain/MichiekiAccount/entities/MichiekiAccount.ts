@@ -23,11 +23,6 @@ export class MichiekiAccount extends Entity<MichiekiAccountID> {
   }
 
   link(userId: MichiekiUserID): MichiekiAccount {
-    return new MichiekiAccount(
-      this.id,
-      this.emailAddress,
-      this.password,
-      userId
-    )
+    return new MichiekiAccount(this.id, this.emailAddress, this.password, userId)
   }
 }

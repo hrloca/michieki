@@ -1,9 +1,5 @@
 import { inject, injectable } from 'tsyringe'
-import {
-  MichiekiAccountRepository,
-  MichiekiAccountID,
-  MichiekiUserID,
-} from '@app/domain'
+import { MichiekiAccountRepository, MichiekiAccountID, MichiekiUserID } from '@app/domain'
 
 @injectable()
 export class LinkUserToAccount {

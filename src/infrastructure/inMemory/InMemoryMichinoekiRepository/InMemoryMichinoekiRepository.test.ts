@@ -25,17 +25,13 @@ describe('MichinoekiStaticRepository', () => {
   })
 
   it('idで取得できること', async () => {
-    const id = MichinoekiID.from(
-      new MichinoekiCoordinates(36.236692, 138.440822)
-    )
+    const id = MichinoekiID.from(new MichinoekiCoordinates(36.236692, 138.440822))
     const result = await repos.findById(id)
     expect(result?.name.toString()).toBe('ヘルシーテラス佐久南')
   })
 
   it('idが存在しない場合はnullが返ること', async () => {
-    const id = MichinoekiID.from(
-      new MichinoekiCoordinates(36.236692, 138.440821)
-    )
+    const id = MichinoekiID.from(new MichinoekiCoordinates(36.236692, 138.440821))
     const result = await repos.findById(id)
     expect(result).toBe(null)
   })

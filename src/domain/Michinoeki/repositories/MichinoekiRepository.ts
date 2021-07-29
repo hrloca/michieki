@@ -1,9 +1,4 @@
-import {
-  Michinoeki,
-  MichinoekiID,
-  MichinoekiName,
-  MichinoekiPrefecture,
-} from '@app/domain'
+import { Michinoeki, MichinoekiID, MichinoekiName, MichinoekiPrefecture } from '@app/domain'
 
 export interface MichinoekiRepository {
   findAll(): Promise<Michinoeki[]>

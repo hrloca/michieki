@@ -23,19 +23,17 @@ export class MichiekiAccountPasswordInputForRestore {
 export class MichiekiAccountPassword
   implements ValueObject<MichiekiAccountPassword>, StringConvertible
 {
+  private readonly maxLength: number = 24
+  private readonly minLength: number = 8
   private hash: string
   private salt: string
-  private maxLength: number = 24
-  private minLength: number = 8
   private properCharacter: RegExp = /^[0-9a-zA-Z]*$/
   private hasher: MichiekiPasswordHasher = new MichiekiPasswordHasher()
 
   constructor(input: MichiekiAccountSecret)
   constructor(input: MichiekiAccountPasswordInputForRestore)
 
-  constructor(
-    input: MichiekiAccountSecret | MichiekiAccountPasswordInputForRestore
-  ) {
+  constructor(input: MichiekiAccountSecret | MichiekiAccountPasswordInputForRestore) {
     if (input instanceof MichiekiAccountPasswordInputForRestore) {
       this.hash = input.hash
       this.salt = input.salt
@@ -70,11 +68,7 @@ export class MichiekiAccountPassword
     const overMinCount = this.isLessThanMinLength(secret)
     const illegalFormat = !this.properCharacter.test(secret)
     if (overMaxCoun || overMinCount || illegalFormat) {
-      throw new MichiekiAccountPasswordError(
-        illegalFormat,
-        overMinCount,
-        overMaxCoun
-      )
+      throw new MichiekiAccountPasswordError(illegalFormat, overMinCount, overMaxCoun)
     }
   }
 

@@ -1,9 +1,5 @@
 import { Entity } from '../../core'
-import {
-  MichiekiUserID,
-  MichiekiUserDisplayName,
-  MichiekiUserScreenName,
-} from '../valueObjects'
+import { MichiekiUserID, MichiekiUserDisplayName, MichiekiUserScreenName } from '../valueObjects'
 
 export class MichiekiUser extends Entity<MichiekiUserID> {
   constructor(

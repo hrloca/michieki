@@ -84,13 +84,9 @@ describe('MichiekiUserInMemoryRepository test.', () => {
   })
 
   it('MichiekiUserをScreenNameで取得できる', async () => {
-    const result = await repos.findByScreenName(
-      new MichiekiUserScreenName('asan')
-    )
+    const result = await repos.findByScreenName(new MichiekiUserScreenName('asan'))
 
-    const result2 = await repos.findByScreenName(
-      new MichiekiUserScreenName('hogesan')
-    )
+    const result2 = await repos.findByScreenName(new MichiekiUserScreenName('hogesan'))
 
     if (!result) throw new Error('何かがおかしいです')
 

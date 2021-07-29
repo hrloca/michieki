@@ -12,8 +12,7 @@ import {
 import { InMemoryMichiekiAccountRepository } from '@app/infrastructure'
 
 const createMock = async () => {
-  const repos: MichiekiAccountRepository =
-    new InMemoryMichiekiAccountRepository()
+  const repos: MichiekiAccountRepository = new InMemoryMichiekiAccountRepository()
   await repos.store(
     new MichiekiAccount(
       new MichiekiAccountID('0000'),

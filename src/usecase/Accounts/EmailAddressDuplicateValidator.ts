@@ -1,8 +1,5 @@
 import { injectable } from 'tsyringe'
-import {
-  MichiekiAccountService,
-  MichiekiAccountEmailAddress,
-} from '@app/domain'
+import { MichiekiAccountService, MichiekiAccountEmailAddress } from '@app/domain'
 
 @injectable()
 export class EmailAddressDuplicateValidator {

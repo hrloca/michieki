@@ -4,9 +4,7 @@ import { buildSchema, ContainerGetter } from 'type-graphql'
 import { gatherModules } from '@app/core'
 import { AppContext } from '@app/types'
 
-const containerGetterByTsyringe: ContainerGetter<AppContext> = ({
-  context,
-}) => ({
+const containerGetterByTsyringe: ContainerGetter<AppContext> = ({ context }) => ({
   get: (some) => context.container.resolve(some),
 })
 

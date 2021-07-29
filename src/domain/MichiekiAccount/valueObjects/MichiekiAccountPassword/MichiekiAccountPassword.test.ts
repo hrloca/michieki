@@ -31,9 +31,7 @@ describe('passwordのハッシュ化のテスト', () => {
 
 describe('passwordの形式のテスト', () => {
   it('パスワードが正常な形式である', async () => {
-    const pass = new MichiekiAccountPassword(
-      new MichiekiAccountSecret('hoge011111')
-    )
+    const pass = new MichiekiAccountPassword(new MichiekiAccountSecret('hoge011111'))
     expect(!!pass).toBe(true)
   })
 
@@ -44,24 +42,18 @@ describe('passwordの形式のテスト', () => {
   })
 
   it('パスワードの文字数が足りる', async () => {
-    expect(
-      !!new MichiekiAccountPassword(new MichiekiAccountSecret('00000000'))
-    ).toBe(true)
+    expect(!!new MichiekiAccountPassword(new MichiekiAccountSecret('00000000'))).toBe(true)
   })
 
   it('パスワードの文字数が多い', async () => {
     expect(() => {
-      new MichiekiAccountPassword(
-        new MichiekiAccountSecret('aaaaaaaaaaaaaaaaaaaaaaaaa')
-      )
+      new MichiekiAccountPassword(new MichiekiAccountSecret('aaaaaaaaaaaaaaaaaaaaaaaaa'))
     }).toThrow(MichiekiAccountPasswordError)
   })
 
   it('メールアドレスに使用不可な文字', async () => {
     expect(() => {
-      new MichiekiAccountPassword(
-        new MichiekiAccountSecret('あああああああああ')
-      )
+      new MichiekiAccountPassword(new MichiekiAccountSecret('あああああああああ'))
     }).toThrow(MichiekiAccountPasswordError)
   })
 })

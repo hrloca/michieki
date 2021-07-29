@@ -16,10 +16,7 @@ export class MichinoekiID extends ID {
   }
 
   static parse(maybeSerializeIdString: string): MichinoekiID {
-    const deserializedString = Buffer.from(
-      maybeSerializeIdString,
-      'base64'
-    ).toString()
+    const deserializedString = Buffer.from(maybeSerializeIdString, 'base64').toString()
     return new MichinoekiID(deserializedString)
   }
 

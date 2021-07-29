@@ -13,9 +13,7 @@ describe('MichiekiUserAccountInMemoryRepository test.', () => {
   const account = new MichiekiAccount(
     new MichiekiAccountID('account'),
     new MichiekiAccountEmailAddress('hoge@gmail.com'),
-    new MichiekiAccountPassword(
-      new MichiekiAccountPasswordInputForRestore('hash', 'salt')
-    ),
+    new MichiekiAccountPassword(new MichiekiAccountPasswordInputForRestore('hash', 'salt')),
     new MichiekiUserID('user')
   )
 
@@ -50,11 +48,8 @@ describe('MichiekiUserAccountInMemoryRepository test.', () => {
 
     await repos.store(updatedAccount)
 
-    const maybeUpdatedAccount = await repos.findById(
-      new MichiekiAccountID('account')
-    )
-    if (!maybeUpdatedAccount)
-      throw new Error('更新後のアカウントが取得できていない')
+    const maybeUpdatedAccount = await repos.findById(new MichiekiAccountID('account'))
+    if (!maybeUpdatedAccount) throw new Error('更新後のアカウントが取得できていない')
 
     expect(maybeUpdatedAccount.emailAddress.toString()).toBe('hoge3@gmail.com')
   })

@@ -3,5 +3,3 @@ build:
     web: Dockerfile
 run:
   web: api_redisURL=$REDIS_URL api_elasticsearchURL=$SEARCHBOX_URL api_port=$PORT npm run start
-
-    

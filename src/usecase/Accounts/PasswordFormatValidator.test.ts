@@ -18,9 +18,7 @@ describe('test.', () => {
   })
 
   it('パスワードの文字数が多い', async () => {
-    expect((await validator.validate('aaaaaaaaaaaaaaaaaaaaaaaaa')).valid).toBe(
-      false
-    )
+    expect((await validator.validate('aaaaaaaaaaaaaaaaaaaaaaaaa')).valid).toBe(false)
   })
 
   it('メールアドレスに使用不可な文字', async () => {

@@ -8,9 +8,7 @@ import {
 } from '@app/domain'
 
 @singleton()
-export class InMemoryMichiekiAccountRepository
-  implements MichiekiAccountRepository
-{
+export class InMemoryMichiekiAccountRepository implements MichiekiAccountRepository {
   readonly ds: Map<string, MichiekiAccount>
   constructor() {
     this.ds = new Map<string, MichiekiAccount>()

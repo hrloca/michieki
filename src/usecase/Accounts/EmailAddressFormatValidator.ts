@@ -1,8 +1,5 @@
 import { injectable } from 'tsyringe'
-import {
-  MichiekiAccountEmailAddress,
-  MichiekiAccountEmailAddressError,
-} from '@app/domain'
+import { MichiekiAccountEmailAddress, MichiekiAccountEmailAddressError } from '@app/domain'
 
 @injectable()
 export class EmailAddressFormatValidator {
