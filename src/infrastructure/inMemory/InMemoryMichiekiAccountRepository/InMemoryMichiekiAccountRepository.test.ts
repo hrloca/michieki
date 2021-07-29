@@ -13,7 +13,9 @@ describe('MichiekiUserAccountInMemoryRepository test.', () => {
   const account = new MichiekiAccount(
     new MichiekiAccountID('account'),
     new MichiekiAccountEmailAddress('hoge@gmail.com'),
-    new MichiekiAccountPassword(new MichiekiAccountPasswordInputForRestore('hash', 'salt')),
+    new MichiekiAccountPassword(
+      new MichiekiAccountPasswordInputForRestore('hash', 'salt')
+    ),
     new MichiekiUserID('user')
   )
 

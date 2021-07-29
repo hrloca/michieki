@@ -34,7 +34,9 @@ describe('AccountRegister test.', () => {
   it('アカウントが登録できる。', async () => {
     const { register, repos } = await createMock()
 
-    const blank = await repos.findByEmailAddress(new MichiekiAccountEmailAddress('huga@gmail.com'))
+    const blank = await repos.findByEmailAddress(
+      new MichiekiAccountEmailAddress('huga@gmail.com')
+    )
 
     await register.register('huga@gmail.com', '00000000')
 

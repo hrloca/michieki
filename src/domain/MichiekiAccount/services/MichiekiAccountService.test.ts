@@ -52,7 +52,9 @@ describe('MichiekiUserAccountService test.', () => {
 
   it('emailaddressの重複をチェックできる', async () => {
     const { service } = await createMock()
-    const isDeplicated = await service.duplicated(new MichiekiAccountEmailAddress('hoge@gmail.com'))
+    const isDeplicated = await service.duplicated(
+      new MichiekiAccountEmailAddress('hoge@gmail.com')
+    )
 
     const isDeplicated2 = await service.duplicated(
       new MichiekiAccountEmailAddress('moge@gmail.com')

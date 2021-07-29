@@ -9,7 +9,9 @@ export class Coordinates {
   }
 
   static stringify(coordinates: Coordinates) {
-    return `${coordinates.lat.toString()}${Coordinates.separator}${coordinates.lng.toString()}`
+    return `${coordinates.lat.toString()}${
+      Coordinates.separator
+    }${coordinates.lng.toString()}`
   }
 
   static parse(str: string) {

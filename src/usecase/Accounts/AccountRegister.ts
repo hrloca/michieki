@@ -18,7 +18,8 @@ export class AccountRegister {
   async register(emailPlaneText: string, passwordPlaneText: string) {
     const account = this.accountFactory.create(emailPlaneText, passwordPlaneText)
 
-    if (await this.accountService.exists(account)) throw new Error('すでにアカウントが存在します。')
+    if (await this.accountService.exists(account))
+      throw new Error('すでにアカウントが存在します。')
 
     await this.accountRepos.store(account)
 

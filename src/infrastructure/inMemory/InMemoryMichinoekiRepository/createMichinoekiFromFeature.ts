@@ -13,7 +13,9 @@ import { michinoekiJson } from '../resources'
 
 const hasFacilityFromFeature = (flg: number) => flg === 1
 
-export const createMichinoekiFromFeature = (feature: typeof michinoekiJson.features[0]) => {
+export const createMichinoekiFromFeature = (
+  feature: typeof michinoekiJson.features[0]
+) => {
   const coordinates = new MichinoekiCoordinates(
     feature.properties.P35_001,
     feature.properties.P35_002
@@ -49,5 +51,13 @@ export const createMichinoekiFromFeature = (feature: typeof michinoekiJson.featu
     hasFacilityFromFeature(feature.properties.P35_028)
   )
 
-  return new Michinoeki(id, name, prefecture, municipality, homepage, coordinates, facility)
+  return new Michinoeki(
+    id,
+    name,
+    prefecture,
+    municipality,
+    homepage,
+    coordinates,
+    facility
+  )
 }

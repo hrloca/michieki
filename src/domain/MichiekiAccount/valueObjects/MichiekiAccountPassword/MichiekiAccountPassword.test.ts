@@ -42,7 +42,9 @@ describe('passwordの形式のテスト', () => {
   })
 
   it('パスワードの文字数が足りる', async () => {
-    expect(!!new MichiekiAccountPassword(new MichiekiAccountSecret('00000000'))).toBe(true)
+    expect(!!new MichiekiAccountPassword(new MichiekiAccountSecret('00000000'))).toBe(
+      true
+    )
   })
 
   it('パスワードの文字数が多い', async () => {

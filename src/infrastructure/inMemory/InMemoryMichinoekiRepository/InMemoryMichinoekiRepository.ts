@@ -55,7 +55,10 @@ export class InMemoryMichinoekiRepository implements MichinoekiRepository {
     return this.json.features
       .filter((feature) => {
         const targetId = MichinoekiID.from(
-          new MichinoekiCoordinates(feature.properties.P35_001, feature.properties.P35_002)
+          new MichinoekiCoordinates(
+            feature.properties.P35_001,
+            feature.properties.P35_002
+          )
         )
 
         return ids.some((id) => id.equals(targetId))

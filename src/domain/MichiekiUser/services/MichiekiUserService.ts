@@ -29,7 +29,9 @@ export class MichiekiUserService {
     return this.duplicatedId(target)
   }
 
-  private async duplicatedScreenName(screenName: MichiekiUserScreenName): Promise<boolean> {
+  private async duplicatedScreenName(
+    screenName: MichiekiUserScreenName
+  ): Promise<boolean> {
     const user = await this.userRepos.findByScreenName(screenName)
     return !!user
   }
