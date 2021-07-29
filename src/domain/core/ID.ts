@@ -7,4 +7,8 @@ export abstract class ID implements ValueObject<ID>, StringConvertible {
   equals(comparisonTaret: this) {
     return this.source === comparisonTaret.source
   }
+
+  toString() {
+    return this.source
+  }
 }

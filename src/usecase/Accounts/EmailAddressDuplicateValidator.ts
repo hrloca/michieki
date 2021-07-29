@@ -6,11 +6,11 @@ import {
 
 @injectable()
 export class EmailAddressDuplicateValidator {
-  constructor(readonly accountService: MichiekiAccountService) {}
+  constructor(private readonly accountService: MichiekiAccountService) {}
 
   async validate(emailPlaneText: string) {
     const email = new MichiekiAccountEmailAddress(emailPlaneText)
-    const valid = await this.accountService.duplicated(email)
+    const valid = !(await this.accountService.duplicated(email))
 
     return {
       valid,

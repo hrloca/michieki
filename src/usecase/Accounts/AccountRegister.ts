@@ -21,7 +21,7 @@ export class AccountRegister {
       passwordPlaneText
     )
 
-    if (this.accountService.exists(account))
+    if (await this.accountService.exists(account))
       throw new Error('すでにアカウントが存在します。')
 
     await this.accountRepos.store(account)

@@ -1,4 +1,4 @@
-import { inject, injectable } from 'tsyringe'
+import { singleton } from 'tsyringe'
 
 import {
   MichiekiAccountRepository,
@@ -7,28 +7,24 @@ import {
   MichiekiAccountEmailAddress,
 } from '@app/domain'
 
-export class InMemoryMichiekiAccountDS {
-  constructor(readonly store: Map<string, MichiekiAccount>) {}
-}
-
-@injectable()
+@singleton()
 export class InMemoryMichiekiAccountRepository
   implements MichiekiAccountRepository
 {
-  constructor(
-    @inject('InMemoryMichiekiUserAccountDS')
-    private readonly data: InMemoryMichiekiAccountDS
-  ) {}
+  readonly ds: Map<string, MichiekiAccount>
+  constructor() {
+    this.ds = new Map<string, MichiekiAccount>()
+  }
   /**
    */
   async findById(id: MichiekiAccountID) {
-    const user = this.data.store.get(id.source) || null
+    const user = this.ds.get(id.source) || null
     return user
   }
 
   async findByEmailAddress(emailaddress: MichiekiAccountEmailAddress) {
     const emailaddressPlaneText = emailaddress.toString()
-    for (let account of this.data.store.values()) {
+    for (let account of this.ds.values()) {
       const accountEmailPlaneText = account.emailAddress.toString()
       if (emailaddressPlaneText === accountEmailPlaneText) return account
     }
@@ -36,7 +32,7 @@ export class InMemoryMichiekiAccountRepository
   }
 
   async store(user: MichiekiAccount) {
-    this.data.store.set(user.id.source, user)
+    this.ds.set(user.id.source, user)
     return user.id
   }
 }

@@ -9,8 +9,8 @@ export class MichiekiUserScreenNameError extends Error {
 export class MichiekiUserScreenName
   implements ValueObject<MichiekiUserScreenName>, StringConvertible
 {
-  readonly maxCount: number = 24
-  readonly minCount: number = 4
+  private readonly maxCount: number = 24
+  private readonly minCount: number = 4
   constructor(private readonly value: string) {}
 
   equals(target: MichiekiUserScreenName) {
