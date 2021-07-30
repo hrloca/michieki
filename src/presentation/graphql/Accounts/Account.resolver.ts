@@ -69,7 +69,7 @@ export class AccountResolver {
     }
   }
 
-  @Mutation({ description: 'メールアドレスのバリデーション。' })
+  @Mutation(() => String, { description: 'メールアドレスのバリデーション。' })
   async emailaddressValidate(@Arg('email') email: string) {
     // TODO
     throw new Error(email)
