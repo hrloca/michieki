@@ -1,4 +1,4 @@
-import { singleton } from 'tsyringe'
+import { injectable } from 'tsyringe'
 
 import {
   MichiekiAccountRepository,
@@ -7,11 +7,13 @@ import {
   MichiekiAccountEmailAddress,
 } from '@app/domain'
 
-@singleton()
+const ds = new Map<string, MichiekiAccount>()
+
+@injectable()
 export class InMemoryMichiekiAccountRepository implements MichiekiAccountRepository {
   readonly ds: Map<string, MichiekiAccount>
   constructor() {
-    this.ds = new Map<string, MichiekiAccount>()
+    this.ds = ds
   }
   /**
    */

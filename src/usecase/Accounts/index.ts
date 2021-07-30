@@ -1,2 +1,5 @@
 export * from './EmailAddressFormatValidator'
 export * from './EmailAddressDuplicateValidator'
+export * from './AccountRegister'
+export * from './LinkUserToAccount'
+export * from './PasswordFormatValidator'

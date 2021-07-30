@@ -14,7 +14,7 @@ export class LinkUserToAccount {
 
     if (!account) throw new Error('対象のアカウントが存在しません。')
 
-    const updatedAccount = account.link(new MichiekiUserID(userIdPlaneText))
+    const updatedAccount = account.linkUser(new MichiekiUserID(userIdPlaneText))
 
     await this.accountRepos.store(updatedAccount)
   }

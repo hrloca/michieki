@@ -10,7 +10,7 @@ import {
 @injectable()
 export class MichiekiAccountService {
   constructor(
-    @inject('MichiekiUserAccountRepository')
+    @inject('MichiekiAccountRepository')
     readonly accountRepos: MichiekiAccountRepository
   ) {}
 
